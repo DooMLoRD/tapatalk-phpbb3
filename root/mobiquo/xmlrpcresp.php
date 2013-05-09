@@ -19,14 +19,18 @@ function get_thread_func()
         global $app_version;
         foreach ($navgation_arr as $navigation)
         {
-        	$forum_id = $navigation['FORUM_ID'];
+        	$nav_forum_id = $navigation['FORUM_ID'];
         	$sub_only = false;
         	if($navigation['S_IS_POST'] != FORUM_POST)
         	{
         		$sub_only = true;
         	}
+        	if(empty($nav_forum_id))
+        	{
+        		continue;
+        	}
             $breadcrumb[] = new xmlrpcval(array(
-                'forum_id'    => new xmlrpcval($forum_id, 'string'),
+                'forum_id'    => new xmlrpcval($nav_forum_id, 'string'),
                 'forum_name'  => new xmlrpcval($navigation['FORUM_NAME'], 'base64'),
 				'sub_only' => new xmlrpcval($sub_only, 'boolean'),
                 ), 'struct');

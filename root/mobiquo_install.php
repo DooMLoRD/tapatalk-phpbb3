@@ -271,15 +271,15 @@ function mobiquo_table($action, $version)
 
 function push_table_update ($action, $version)
 {
-	global $db, $table_prefix, $umil;
-	if($action == 'update')
+	global $db, $table_prefix, $umil,$config;
+	if ($umil->table_exists($table_prefix.'tapatalk_push_data'))
 	{
-		if ($umil->table_exists($table_prefix.'tapatalk_push_data'))
+		if(!$umil->table_index_exists($table_prefix.'tapatalk_push_data','create_time'))
 		{
-			$sql = "ALTER TABLE  ".$table_prefix.'tapatalk_push_data'." ADD INDEX (create_time)";
-			$db->sql_query($sql);
+			$umil->table_index_add($table_prefix.'tapatalk_push_data','create_time');
 		}
 	}
+	
 }
 	
 ?>
