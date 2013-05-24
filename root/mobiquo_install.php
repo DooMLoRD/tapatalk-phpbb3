@@ -227,7 +227,8 @@ $versions = array(
 			array('tapatalk_push_slug','0'),
 		),
 		
-	)
+	),
+	'3.8.1' => array(),
 );		
 
 		
