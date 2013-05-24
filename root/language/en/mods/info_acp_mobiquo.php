@@ -43,9 +43,9 @@ $lang = array_merge($lang, array(
 	'TAPATALK_FORUM_READ_ONLY'         => 'Disable New Topic' ,
 	'TAPATALK_FORUM_READ_ONLY_EXPLAIN' => 'Prevent Tapatalk users to create new topic in the selected sub-forums. This feature is useful if certain forums requires additional topic fields or permission that Tapatalk does not support.',
 
-	'TAPATALK_ANDROID_URL'          => 'Android Product URL',
+	'TAPATALK_ANDROID_URL'          => 'Android Product ID',
 	'TAPATALK_KINDLE_URL'           => 'Kindle Fire Product URL',
-	'TAPATALK_ANDROID_URL_EXPLAIN'          => 'Enter your BYO App URL from Google Play, to be used on Android device.',
+	'TAPATALK_ANDROID_URL_EXPLAIN'          => 'Enter your BYO App ID from Google Play, to be used on Android device. E.g. "com.quoord.tapatalkpro.activity".',
 	'TAPATALK_KINDLE_URL_EXPLAIN'           => 'Enter your BYO App URL from Amazon App Store, to be used on Kindle Fire device.',
 	
 	'TAPATALK_ALLOW_REGISTER'               => 'In-app Registration',
