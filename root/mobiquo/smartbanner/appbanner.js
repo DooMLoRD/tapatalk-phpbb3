@@ -48,7 +48,7 @@ if (empty(app_android_id)) {
         byo_android_enable = true;
         var app_android_hd_id = app_android_id;
     } else
-        var app_android_hd_id = app_ios_hd_id_default;
+        var app_android_hd_id = app_android_hd_id_default;
 }
 
 if (app_android_id == '-1') {

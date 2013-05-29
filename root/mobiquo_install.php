@@ -141,7 +141,7 @@ $versions = array(
 						'create_time'	=> array('TIMESTAMP',0),
 					),
 					'PRIMARY_KEY'	=> 'push_id',
-					'KEYS'          => array('user_id' => array('INDEX','user_id'),'create_time' => array('INDEX','create_time')),
+					'KEYS'          => array('user_id' => array('INDEX','user_id'),'ct' => array('INDEX','create_time')),
 				),
 			)
 		),
@@ -275,9 +275,10 @@ function push_table_update ($action, $version)
 	global $db, $table_prefix, $umil,$config;
 	if ($umil->table_exists($table_prefix.'tapatalk_push_data'))
 	{
-		if(!$umil->table_index_exists($table_prefix.'tapatalk_push_data','create_time'))
+		if(!$umil->table_index_exists($table_prefix.'tapatalk_push_data','ct') && (!$umil->table_index_exists($table_prefix.'tapatalk_push_data','create_time')))
 		{
-			$umil->table_index_add($table_prefix.'tapatalk_push_data','create_time');
+			$cloumn = array('create_time');
+			$umil->table_index_add($table_prefix.'tapatalk_push_data','ct',$cloumn);
 		}
 	}
 	
