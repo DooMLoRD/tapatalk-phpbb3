@@ -305,7 +305,6 @@ function tt_push_clean($str)
 {
 	global $db;
     $str = strip_tags($str);
-    $str = $db->sql_escape($str);
     return $str;
 }
 
@@ -352,6 +351,8 @@ function tt_insert_push_data($data)
 	{
 		$data['subid'] = $data['id'];
 	}
+	$data['title'] = $db->sql_escape($data['title']);    	
+	$data['author'] = $db->sql_escape($data['author']);
 	$sql_data[$table_prefix . "tapatalk_push_data"]['sql'] = array(
         'author' => $data['author'],
 		'user_id' => $data['userid'],
@@ -369,8 +370,6 @@ function tt_send_push_data($user_id,$type,$id,$sub_id,$title,$author,$is_only_al
 {
 	global $config,$db;
     $boardurl = generate_board_url();
-	$title = tt_push_clean($title);
-	$author = tt_push_clean($author);
 	$ttp_data = array(
                 'userid'    => $user_id,
                 'type'      => $type,
@@ -381,7 +380,9 @@ function tt_send_push_data($user_id,$type,$id,$sub_id,$title,$author,$is_only_al
                 'dateline'  => time(),
     );
     if(push_data_table_exists())
+    {
     	tt_insert_push_data($ttp_data);
+    }
     if($is_only_alert)
     {
     	return ;
