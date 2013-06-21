@@ -1124,7 +1124,7 @@ function get_forum_icon_by_name($id, $name, $final)
 function check_return_user_type($username)
 {
 	global $db;
-	$session = new session();
+	$session = new user();
 	$user_id = get_user_id_by_name($username);
 	if(empty($user_id))
 	{
@@ -1308,4 +1308,28 @@ function getContentFromRemoteServer($url, $holdTime = 0, $error_msg='', $method 
     	return $error_msg;
     }
     return $response;
+}
+
+function tt_get_user_by_email($email)
+{
+	global $db;
+	$sql = 'SELECT *
+		FROM ' . USERS_TABLE . "
+		WHERE user_email = '" . $db->sql_escape($email) . "'";
+	$result = $db->sql_query($sql);
+	$row = $db->sql_fetchrow($result);
+	$db->sql_freeresult($result);
+	return $row;
+}
+
+function tt_get_user_by_id($uid)
+{
+	global $db;
+	$sql = 'SELECT *
+		FROM ' . USERS_TABLE . "
+		WHERE user_id = '" . $db->sql_escape($uid) . "'";
+	$result = $db->sql_query($sql);
+	$row = $db->sql_fetchrow($result);
+	$db->sql_freeresult($result);
+	return $row;
 }

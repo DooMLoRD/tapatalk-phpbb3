@@ -229,6 +229,7 @@ $versions = array(
 		
 	),
 	'3.8.1' => array(),
+	'3.9.0' => array(),
 );		
 
 		

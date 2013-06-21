@@ -153,6 +153,15 @@
 					<change>optimize app banner display on tablet </change>
 				</changelog>
 			</entry>
+			<entry>
+				<date>2013-06-28</date>
+				<rev-version>3.9.0</rev-version>
+				<changelog lang="en">
+					<change>Better suppport for Tapatalk ID users to sign in forum easiler</change>
+					<change>Better support of displaying avatar.</change>
+					<change>Some bugs fixed </change>
+				</changelog>
+			</entry>
 		</history>
 		<link-group>
 			<link type="parent" href="../install.xml" lang="en">Main Install File</link>

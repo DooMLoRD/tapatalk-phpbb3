@@ -19,7 +19,7 @@
 				</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>3.8.1</mod-version>
+		<mod-version>3.9.0</mod-version>
 		<installation>
 			<level>intermediate</level>
 			<time>1800</time>
@@ -145,12 +145,12 @@
 				</changelog>
 			</entry>
 			<entry>
-				<date>2013-05-24</date>
-				<rev-version>3.8.1</rev-version>
+				<date>2013-06-28</date>
+				<rev-version>3.9.0</rev-version>
 				<changelog lang="en">
-					<change>fix Constant IN_MOBIQUO already defined</change>
-					<change>fix forum navigation do not display in some times</change>
-					<change>optimize app banner display on tablet </change>
+					<change>Better suppport for Tapatalk ID users to sign in forum easiler</change>
+					<change>Better support of displaying avatar.</change>
+					<change>Some bugs fixed </change>
 				</changelog>
 			</entry>
 		</history>

@@ -425,6 +425,16 @@ switch ($request_method)
     	$_POST['tt_token'] = $request_params[1];
     	$_POST['tt_code'] = $request_params[2];
     	break;
+    case 'sign_in':
+    	$_POST['token'] = $request_params[0];
+    	$_POST['code'] = $request_params[1];
+    	$_POST['email'] = $request_params[2];
+    	$_POST['username'] = $request_params[3];
+    	$_POST['password'] = $request_params[4];
+    	break;
+    case 'prefetch_account':
+    	$_POST['email'] = $request_params[0];
+    	break;
 }
 
 foreach($_GET  as $key => $value) $_REQUEST[$key] = $value;
