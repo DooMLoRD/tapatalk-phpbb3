@@ -33,7 +33,6 @@ function sign_in_func()
 	if(isset($token) && isset($code))
 	{
 	    $result = tt_register_verify($token, $code);
-	    $result->result = 1;$result->email = 'aa@gmail.com';
 		if($result->result && !empty($result->email))
 		{
 			$email = $result->email;

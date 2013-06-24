@@ -26,6 +26,18 @@ function login_func($xmlrpc_params)
     header('Set-Cookie: mobiquo_a=0');
     header('Set-Cookie: mobiquo_b=0');
     header('Set-Cookie: mobiquo_c=0');
+    
+    if(!get_user_id_by_name($username))
+    {
+        $status = 2;
+    	$response = new xmlrpcval(array(
+	        'result'          => new xmlrpcval(0, 'boolean'),
+	        'result_text'     => new xmlrpcval('username is not exist', 'base64'),
+		 	'status'          => new xmlrpcval($status, 'string'),
+	    ), 'struct');
+        return new xmlrpcresp($response);
+    }
+    
     $login_result = $auth->login($username, $password, true, $viewonline);
     
     $usergroup_id = array();
