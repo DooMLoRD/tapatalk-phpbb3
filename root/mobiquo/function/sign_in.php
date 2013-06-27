@@ -64,108 +64,111 @@ function sign_in_func()
 				);
 				
 				//check username 
-				if(!($result_username = validate_username($username)))
+				if($result_username = validate_username($username))
 				{
 					if($result_username == 'USERNAME_TAKEN')
 					{
-						$status = 2;
+						$status = 1;
 					}
 					else 
 					{
 						$error[] = (empty($user->lang[$result_username . '_' . strtoupper('username')])) ? $result_username : $result_username . '_' . strtoupper('username');
 					}
 				}
-				$error = validate_data($data, array(
-					'new_password'		=> array(
-						array('string', false, $config['min_pass_chars'], $config['max_pass_chars']),
-						array('password')),
-					'password_confirm'	=> array('string', false, $config['min_pass_chars'], $config['max_pass_chars']),
-					'email'				=> array(
-						array('string', false, 6, 60),
-						array('email')),
-					'email_confirm'		=> array('string', false, 6, 60),
-					'tz'				=> array('num', false, -14, 14),
-					'lang'				=> array('language_iso_name'),
-				));
-				
-				// Replace "error" strings with their real, localised form
-				$error = preg_replace('#^([A-Z_]+)$#e', "(!empty(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '\\1'", $error);
-				// DNSBL check
-				if ($config['check_dnsbl'])
+				else 
 				{
-					if (($dnsbl = $user->check_dnsbl('register')) !== false)
-					{
-						$error[] = sprintf($user->lang['IP_BLACKLISTED'], $user->ip, $dnsbl[1]);
-					}
-				}
-			
-				
-				if (!sizeof($error))
-				{
-			
-					// Which group by default?
-					$group_name = 'REGISTERED';
-			
-					$sql = 'SELECT group_id
-						FROM ' . GROUPS_TABLE . "
-						WHERE group_name = '" . $db->sql_escape($group_name) . "'
-							AND group_type = " . GROUP_SPECIAL;
-					$result = $db->sql_query($sql);
-					$row = $db->sql_fetchrow($result);
-					$db->sql_freeresult($result);
-			
-					if (!$row)
-					{
-						trigger_error('NO_GROUP');
-					}
-			
-					$group_id = $row['group_id'];
-					$user_type = USER_NORMAL;
-					$user_actkey = '';
-					$user_inactive_reason = 0;
-				    $user_inactive_time = 0;
-			
-					$user_row = array(
-						'username'				=> $data['username'],
-						'user_password'			=> phpbb_hash($data['new_password']),
-						'user_email'			=> $data['email'],
-						'group_id'				=> (int) $group_id,
-						'user_timezone'			=> (float) $data['tz'],
-						'user_dst'				=> $is_dst,
-						'user_lang'				=> $data['lang'],
-						'user_type'				=> $user_type,
-						'user_actkey'			=> $user_actkey,
-						'user_ip'				=> $user->ip,
-						'user_regdate'			=> time(),
-						'user_inactive_reason'	=> $user_inactive_reason,
-						'user_inactive_time'	=> $user_inactive_time,
-					);
+					$error = validate_data($data, array(
+						'new_password'		=> array(
+							array('string', false, $config['min_pass_chars'], $config['max_pass_chars']),
+							array('password')),
+						'password_confirm'	=> array('string', false, $config['min_pass_chars'], $config['max_pass_chars']),
+						'email'				=> array(
+							array('string', false, 6, 60),
+							array('email')),
+						'email_confirm'		=> array('string', false, 6, 60),
+						'tz'				=> array('num', false, -14, 14),
+						'lang'				=> array('language_iso_name'),
+					));
 					
-					if ($config['new_member_post_limit'])
+					// Replace "error" strings with their real, localised form
+					$error = preg_replace('#^([A-Z_]+)$#e', "(!empty(\$user->lang['\\1'])) ? \$user->lang['\\1'] : '\\1'", $error);
+					// DNSBL check
+					if ($config['check_dnsbl'])
 					{
-						$user_row['user_new'] = 1;
+						if (($dnsbl = $user->check_dnsbl('register')) !== false)
+						{
+							$error[] = sprintf($user->lang['IP_BLACKLISTED'], $user->ip, $dnsbl[1]);
+						}
 					}
 				
-					// Register user...
-					$user_id = user_add($user_row);
-			
-					// This should not happen, because the required variables are listed above...
-					if ($user_id === false)
+					
+					if (!sizeof($error))
 					{
-						trigger_error('NO_USER', E_USER_ERROR);
+				
+						// Which group by default?
+						$group_name = 'REGISTERED';
+				
+						$sql = 'SELECT group_id
+							FROM ' . GROUPS_TABLE . "
+							WHERE group_name = '" . $db->sql_escape($group_name) . "'
+								AND group_type = " . GROUP_SPECIAL;
+						$result = $db->sql_query($sql);
+						$row = $db->sql_fetchrow($result);
+						$db->sql_freeresult($result);
+				
+						if (!$row)
+						{
+							trigger_error('NO_GROUP');
+						}
+				
+						$group_id = $row['group_id'];
+						$user_type = USER_NORMAL;
+						$user_actkey = '';
+						$user_inactive_reason = 0;
+					    $user_inactive_time = 0;
+				
+						$user_row = array(
+							'username'				=> $data['username'],
+							'user_password'			=> phpbb_hash($data['new_password']),
+							'user_email'			=> $data['email'],
+							'group_id'				=> (int) $group_id,
+							'user_timezone'			=> (float) $data['tz'],
+							'user_dst'				=> $is_dst,
+							'user_lang'				=> $data['lang'],
+							'user_type'				=> $user_type,
+							'user_actkey'			=> $user_actkey,
+							'user_ip'				=> $user->ip,
+							'user_regdate'			=> time(),
+							'user_inactive_reason'	=> $user_inactive_reason,
+							'user_inactive_time'	=> $user_inactive_time,
+						);
+						
+						if ($config['new_member_post_limit'])
+						{
+							$user_row['user_new'] = 1;
+						}
+					
+						// Register user...
+						$user_id = user_add($user_row);
+				
+						// This should not happen, because the required variables are listed above...
+						if ($user_id === false)
+						{
+							trigger_error('NO_USER', E_USER_ERROR);
+						}
+						else 
+						{
+							$user_info['user_id'] = $user_id;
+							return tt_login_success();
+						}
+						
 					}
 					else 
 					{
-						$user_info['user_id'] = $user_id;
-						return tt_login_success();
-					}
-					
-				}
-				else 
-				{
-					foreach ($error as $msg)
-					{
-						trigger_error($msg);
+						foreach ($error as $msg)
+						{
+							trigger_error($msg);
+						}
 					}
 				}
 			}

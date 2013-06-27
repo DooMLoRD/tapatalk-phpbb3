@@ -23,6 +23,7 @@ if(!empty($_GET['user_id']))
 }
 else if(!empty($_GET['username']))
 {
+	$_GET['username'] = base64_decode($_GET['username']);
 	$_GET['username'] = trim($_GET['username']);	
 	$uid = get_user_id_by_name($_GET['username']);
 }

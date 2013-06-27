@@ -114,7 +114,6 @@ function xmlrpc_error_handler($errno, $msg_text, $errfile, $errline)
             {
                 $msg_text = (!empty($user->lang[$msg_text])) ? $user->lang[$msg_text] : $msg_text;
             }
-
             garbage_collection();
         break;
 
@@ -845,7 +844,13 @@ function check_error_status(&$str)
             } elseif (strpos($str, $user->lang['INCORRECT_THANKS']) !== false) {
                 $str = $user->lang['INCORRECT_THANKS'];
                 return false;
-            } else {
+            } 
+            else if(strpos($str, 'Tried to redirect to potentially insecure url')  !== false )
+            {
+            	$str = '';
+            	return true;
+            }
+            else {
                 return false;
             }
             
