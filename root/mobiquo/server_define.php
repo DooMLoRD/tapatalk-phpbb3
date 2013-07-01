@@ -478,4 +478,11 @@ $server_param = array(
                              array($xmlrpcStruct, $xmlrpcBase64),
     						 ),
     ),
+    
+    'mark_pm_unread' => array(
+        'function'  => 'mark_pm_unread_func',
+        'signature' => array(array($xmlrpcArray),
+                             array($xmlrpcStruct, $xmlrpcString)),
+        'docstring' => 'message id',
+    ),
 );
