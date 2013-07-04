@@ -17,6 +17,7 @@ disable_bbcode = 0
 report_post = 1
 report_pm = 1
 mark_read = 1
+mark_pm_unread = 1
 mark_forum = 1
 goto_unread = 1
 goto_post = 1

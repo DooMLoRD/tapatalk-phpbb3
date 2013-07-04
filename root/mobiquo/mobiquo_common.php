@@ -65,7 +65,10 @@ function xmlrpc_error_handler($errno, $msg_text, $errfile, $errline)
     {
         return;
     }
-
+	/*if(strpos($errfile, 'session.php') !== false)
+	{
+		return ;
+	}*/
     if ($msg_text == 'NO_SEARCH_RESULTS')
     {
         $response = search_func();
