@@ -34,15 +34,15 @@ function get_forum_func($xmlrpc_params)
     $user_watch_array = array();
     if($user->data['is_registered'])
     {
-    	$sql = "SELECT notify_status,forum_id FROM " . FORUMS_WATCH_TABLE . " WHERE user_id = '".$user->data['user_id']."'";
-    	$result_watch = $db->sql_query($sql);
-    	while($row_watch = $db->sql_fetchrow($result_watch))
-    	{
-    		if(isset($row_watch['notify_status']) && !is_null($row_watch['notify_status']) && $row_watch['notify_status'] !== '')
-    		{
-    			$user_watch_array[] = $row_watch['forum_id'];
-    		}
-    	}
+        $sql = "SELECT notify_status,forum_id FROM " . FORUMS_WATCH_TABLE . " WHERE user_id = '".$user->data['user_id']."'";
+        $result_watch = $db->sql_query($sql);
+        while($row_watch = $db->sql_fetchrow($result_watch))
+        {
+            if(isset($row_watch['notify_status']) && !is_null($row_watch['notify_status']) && $row_watch['notify_status'] !== '')
+            {
+                $user_watch_array[] = $row_watch['forum_id'];
+            }
+        }
     }
     $forum_rows = array();
     $forum_rows[$root_forum_id] = array('forum_id' => $root_forum_id, 'parent_id' => -1, 'child' => array());
@@ -56,15 +56,15 @@ function get_forum_func($xmlrpc_params)
             // Non-postable forum with no subforums, don't display
             continue;
         }
-		if(in_array($row['forum_id'], $forum_hide_forum_arr))
-		{
-			continue;
-		}
-		elseif(in_array($row['parent_id'], $forum_hide_forum_arr))
-		{
-			array_push($forum_hide_forum_arr, $row['forum_id']);
-			continue;
-		}
+        if(in_array($row['forum_id'], $forum_hide_forum_arr))
+        {
+            continue;
+        }
+        elseif(in_array($row['parent_id'], $forum_hide_forum_arr))
+        {
+            array_push($forum_hide_forum_arr, $row['forum_id']);
+            continue;
+        }
         // Skip branch
         if (isset($right_id))
         {
@@ -108,7 +108,7 @@ function get_forum_func($xmlrpc_params)
     }
     
     while(empty($forum_rows[$root_forum_id]['child']) && count($forum_rows) > 1)
-    {	
+    {   
         $current_parent_id = -1;
         $leaves_forum = array();
         foreach($forum_rows as $row)
@@ -144,7 +144,7 @@ function get_forum_func($xmlrpc_params)
             foreach($leaves as $forum_id)
             {
                 $forum =& $forum_rows[$forum_id];
-            	if (function_exists('get_unread_topics'))
+                if (function_exists('get_unread_topics'))
                     $unread_count = count(get_unread_topics(false, "AND t.forum_id = $forum_id"));
                 else
                     $unread_count = count(tt_get_unread_topics(false, "AND t.forum_id = $forum_id"));
@@ -154,40 +154,22 @@ function get_forum_func($xmlrpc_params)
                 {
                     $forum_rows[$forum['parent_id']]['unread_count'] += $forum['unread_count'];
                 }
-                $logo_url = '';
-	            //@todo
-				global $tapatalk_forum_icon_dir,$tapatalk_forum_icon_url;
-				$tapatalk_forum_icon_dir = './forum_icons/';
-				$tapatalk_forum_icon_url = $phpbb_home.$config['tapatalkdir'].'/forum_icons/';
-	       		if($forum['forum_type'] != FORUM_POST)
-				{
-					$forum_type = 'category';
-				}
-				else if(!empty($forum['forum_link']))
-				{
-					$forum_type = 'link';
-				}
-				else 
-				{
-					$forum_type = 'forum';
-				}
-				if(empty($forum['forum_image']))
-				{
-					$logo_url = get_forum_icon($forum_id,$forum_type);
-				}
-            	else if ($forum['forum_image'])
+                
+                $forum_type = $forum['forum_link'] ? 'link' : ($forum['forum_type'] != FORUM_POST ? 'category' : 'forum');
+                
+                if ($logo_icon_name = tp_get_forum_icon($forum_id, $forum_type, $forum['forum_status'], $forum['unread_count']))
+                    $logo_url = $phpbb_home.$config['tapatalkdir'] .'/forum_icons/'.$logo_icon_name;
+                else if ($forum['forum_image'])
                 {
-                    $logo_url = $phpbb_home.$forum['forum_image'];
+                    if (preg_match('#^https?://#i', $forum['forum_image']))
+                        $logo_url = $forum['forum_image'];
+                    else
+                        $logo_url = $phpbb_home.$forum['forum_image'];
                 }
-            	if(!empty($forum['unread_count']))
-				{
-					$logo_url = get_forum_icon($forum_id,$forum_type,false,true);
-				}
-				if (!empty($forum['forum_password']))
-				{
-					$logo_url = get_forum_icon($forum_id,$forum_type,true);
-				}
-               
+                else
+                    $logo_url = '';
+                
+                
                 $xmlrpc_forum = array(
                     'forum_id'      => new xmlrpcval($forum_id),
                     'forum_name'    => new xmlrpcval(basic_clean($forum['forum_name']), 'base64'),
