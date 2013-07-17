@@ -16,7 +16,7 @@ function login_func($xmlrpc_params)
     
     $user->setup('ucp');
     
-    $username = $params[0];
+    $username = $username_orgin = $params[0];
     $password = $params[1];
     $viewonline = isset($params[2]) ? !$params[2] : 1;
     $push = isset($params[3]) ? intval($params[3]) : 1;
@@ -27,7 +27,7 @@ function login_func($xmlrpc_params)
     header('Set-Cookie: mobiquo_b=0');
     header('Set-Cookie: mobiquo_c=0');
     
-    if(!get_user_id_by_name($username))
+    if(!get_user_id_by_name($username_orgin))
     {
         $status = 2;
     	$response = new xmlrpcval(array(
