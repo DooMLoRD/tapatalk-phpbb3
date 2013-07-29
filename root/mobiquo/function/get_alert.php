@@ -1,9 +1,10 @@
 <?php
 defined('IN_MOBIQUO') or exit;
+$totalAlert = 0;
 $alertData = getAlert();
 function getAlert()
 {
-	global $db,$request_params,$user, $config ,$table_prefix;
+	global $db,$request_params,$user, $config ,$table_prefix,$totalAlert;
 	$push_table = $table_prefix . "tapatalk_push_data";
 	$lang = array(
 		'reply_to_you' => "%s replied to \"%s\"",
@@ -28,6 +29,13 @@ function getAlert()
     LEFT JOIN " . USERS_TABLE . " u ON p.author = u.username WHERE p.user_id = " . $user->data['user_id'] . "
     ORDER BY create_time DESC LIMIT $startNum,$per_page ";
     $query = $db->sql_query($sql_select);
+    
+    $total_sql = "SELECT count(*) as total FROM ". $push_table . " p 
+    LEFT JOIN " . USERS_TABLE . " u ON p.author = u.username WHERE p.user_id = " . $user->data['user_id'];
+    $query_total = $db->sql_query($total_sql);
+    $total_data = $db->sql_fetchrow($query_total);
+    $totalAlert = $total_data['total'];
+    
     while($data = $db->sql_fetchrow($query))
     {
     	switch ($data['data_type'])
