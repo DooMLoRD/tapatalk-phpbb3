@@ -14,7 +14,7 @@ class mobi_ucp_profile
 		$error = $data = array();
 		$s_hidden_fields = '';
 		
-		if(!empty($_POST['tt_token']) && !empty($_POST['tt_code']) && !$user->data['is_registered'])
+		if(!empty($_POST['tt_token']) && !empty($_POST['tt_code']))
 		{
 			$result = tt_register_verify($_POST['tt_token'], $_POST['tt_code']); 
 			if($result->result && $result->email)
@@ -28,7 +28,7 @@ class mobi_ucp_profile
 				$this->result_text = "No permission to update your profie info";
 			}
 		}
-		if(!$user->data['is_registered'] && !empty($email))
+		if(!empty($email))
 		{
 			$sql = 'SELECT user_id, username,username_clean, user_password, user_email_hash,user_passchg, user_pass_convert, user_email, user_type, user_login_attempts
 				FROM ' . USERS_TABLE . "
