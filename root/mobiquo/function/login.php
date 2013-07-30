@@ -43,7 +43,6 @@ function login_func($xmlrpc_params)
     $usergroup_id = array();
     if ($login_result['status'] == LOGIN_SUCCESS)
     {
-    	$user->session_create($user->data['user_id'], 0, true, 1);
         $auth->acl($user->data);
         //add tapatalk_users here,for push service
         if(push_table_exists())
