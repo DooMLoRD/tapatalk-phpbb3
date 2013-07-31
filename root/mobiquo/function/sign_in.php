@@ -1,6 +1,7 @@
 <?php
 defined('IN_MOBIQUO') or exit;
 require($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+$_COOKIE = array();
 $user->session_begin();
 $auth->acl($user->data);
 $user->setup('ucp');
