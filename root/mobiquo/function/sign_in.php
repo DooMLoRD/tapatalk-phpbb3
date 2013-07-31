@@ -43,7 +43,7 @@ function sign_in_func()
 			}
 			else if($user_info = tt_get_user_by_email($email))
 			{
-				if(!empty($username) && $username != $user_info['username'])
+				if(!empty($username) && strtolower($username) != strtolower($user_info['username']))
 				{
 					$status = 3;
 				}
