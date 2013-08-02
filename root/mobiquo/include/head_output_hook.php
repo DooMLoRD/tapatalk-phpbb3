@@ -12,8 +12,7 @@
 	if(file_exists($phpbb_root_path.$tapatalk_dir . '/smartbanner/head.inc.php'))
 	{
 		$app_forum_name = $config['sitename'];
-		
-	    $tapatalk_dir_url = $board_url.'/'.$tapatalk_dir;
+	    $tapatalk_dir_url = $board_url . $tapatalk_dir;
 	    $is_mobile_skin = 0;
 	    $app_location_url = $tapatalk_location_url;
 	    

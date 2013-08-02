@@ -1162,20 +1162,16 @@ function check_return_user_type($username)
 function tt_register_verify($tt_token,$tt_code)
 {
     global $config;
-    if(empty($config['tapatalk_push_key']))
-    {
-        return false;
-    }
-    $url = "http://directory.tapatalk.com/au_reg_verify.php?token=".$tt_token."&code=".$tt_code."&key=" . $config['tapatalk_push_key'];
+    $key = isset($config['tapatalk_push_key']) ? $config['tapatalk_push_key'] : '';
+    $url = "http://directory.tapatalk.com/au_reg_verify.php?token=".$tt_token."&code=".$tt_code."&key=" . $key;
+    $board_url = generate_board_url();
+    $url .= '&url=' . urlencode($board_url);
+
     $error_msg = '';
     $response = getContentFromRemoteServer($url, 10 , $error_msg);
-    if(empty($response))
-    {
-        $response = getContentFromRemoteServer($url, 0 , $error_msg);
-    }
     if(!empty($error_msg))
     {
-        $response = '{"result":false,"result_text":"Contect timeout , please try again"}';
+        $response = '{"result":false,"result_text":"' . $error_msg . '"}';
     }
     if(empty($response))
     {
@@ -1197,7 +1193,7 @@ function tt_register_verify($tt_token,$tt_code)
  * @exmaple: getContentFromRemoteServer('http://push.tapatalk.com/push.php', 0, $error_msg, 'POST', $ttp_post_data)
  * @return string when get content successfully|false when the parameter is invalid or connection failed.
 */
-function getContentFromRemoteServer($url, $holdTime = 0, $error_msg='', $method = 'GET', $data = array())
+function getContentFromRemoteServer($url, $holdTime = 0, &$error_msg, $method = 'GET', $data = array())
 {
     //Validate input.
     $vurl = parse_url($url);

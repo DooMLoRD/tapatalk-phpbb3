@@ -9,6 +9,7 @@ $user->setup('ucp');
 function sign_in_func()
 {
     global $config, $db, $user, $auth, $template, $phpbb_root_path, $phpEx,$user_info;
+    
 	if ($config['require_activation'] == USER_ACTIVATION_DISABLE)
 	{
 		trigger_error('UCP_REGISTER_DISABLE');
@@ -19,7 +20,7 @@ function sign_in_func()
 	$user_lang		= request_var('lang', $user->lang_name);
 
 	
-	$cp = new custom_profile();
+	//$cp = new custom_profile();
 	$verify_result = false;
 	$error = array();
 	$is_dst = $config['board_dst'];
@@ -33,10 +34,10 @@ function sign_in_func()
 	$status = '';
 	if(isset($token) && isset($code))
 	{
-	    $result = tt_register_verify($token, $code);
-		if($result->result && !empty($result->email))
+	    $return = tt_register_verify($token, $code);
+		if($return->result && !empty($return->email))
 		{
-			$email = $result->email;
+			$email = $return->email;
 		    if(!empty($post_email) && $post_email != $email)
 			{
 				$status = 3;
@@ -63,7 +64,6 @@ function sign_in_func()
 					'lang'				=> basename(request_var('lang', $user->lang_name)),
 					'tz'				=> request_var('tz', (float) $timezone),
 				);
-				
 				//check username 
 				if($result_username = validate_username($username))
 				{
@@ -127,7 +127,8 @@ function sign_in_func()
 						$user_actkey = '';
 						$user_inactive_reason = 0;
 					    $user_inactive_time = 0;
-				
+						
+					    
 						$user_row = array(
 							'username'				=> $data['username'],
 							'user_password'			=> phpbb_hash($data['new_password']),
@@ -148,10 +149,26 @@ function sign_in_func()
 						{
 							$user_row['user_new'] = 1;
 						}
+						
+						if(!empty($return->profile))
+						{
+							$profile = $return->profile;
+							if(!empty($profile->birthday) && $config['allow_birthdays'])
+							{
+								$birth_arr = explode('-', $profile->birthday);
+								$user_row['user_birthday'] = sprintf('%2d-%2d-%4d', $birth_arr[2], $birth_arr[1], $birth_arr[0]);
+							}
+							
+							$user_row['user_from'] = $profile->location;
+							$user_row['user_website'] = $profile->link;
+							$user_row['user_sig'] = $profile->signature;
+							
+						}
 					
 						// Register user...
-						$user_id = user_add($user_row);
-				
+						$user_id = user_add($user_row);	
+						//copy avatar
+						tt_copy_avatar($user_id, $profile->avatar_url);
 						// This should not happen, because the required variables are listed above...
 						if ($user_id === false)
 						{
@@ -178,9 +195,16 @@ function sign_in_func()
 				$status = 2;
 			}
 		}
-		else if(!$result->result)
+		else if(!$return->result)
 		{
-			trigger_error("Tapatalk ID verify faile!");
+			if(!empty($return->result_text))
+			{
+				trigger_error($return->result_text);
+			}
+			else 
+			{
+				trigger_error("Tapatalk ID verify faile!");
+			}
 		}
 
 		if(!empty($status))
@@ -294,8 +318,29 @@ function tt_login_success()
 	    return new xmlrpcresp($response);
 	}
 	
-	
-	
 }
 
+function tt_copy_avatar($uid,$avatar_url)
+{
+	global $config,$phpbb_root_path,$db,$user, $phpEx;
+	$can_upload = ($config['allow_avatar_upload'] && file_exists($phpbb_root_path . $config['avatar_path']) && phpbb_is_writable($phpbb_root_path . $config['avatar_path']) &&  (@ini_get('file_uploads') || strtolower(@ini_get('file_uploads')) == 'on')) ? true : false;
+	if($can_upload && !empty($avatar_url))
+	{
+		$avatar['user_id'] = $uid;
+		$avatar['uploadurl'] = $avatar_url;
+		$error = array();
+		$upload_response = avatar_upload($avatar, $error);
+
+		if(empty($error))
+		{
+			list($sql_ary['user_avatar_type'], $sql_ary['user_avatar'], $sql_ary['user_avatar_width'], $sql_ary['user_avatar_height']) = $upload_response;
+			$sql = 'UPDATE ' . USERS_TABLE . '
+			SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
+			WHERE user_id = ' . $uid;
+			$db->sql_query($sql);
+		}
+
+		
+	}
+}
 
