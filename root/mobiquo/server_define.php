@@ -485,4 +485,12 @@ $server_param = array(
                              array($xmlrpcStruct, $xmlrpcString)),
         'docstring' => 'message id',
     ),
+    
+    'search_user' => array(
+    	'function' => 'search_user_func',
+    	'signature' => array(array($xmlrpcStruct),
+    						 array($xmlrpcStruct, $xmlrpcBase64 ),
+    						 array($xmlrpcStruct, $xmlrpcBase64,$xmlrpcInt ,$xmlrpcInt),
+    						 ),
+    ),
 );

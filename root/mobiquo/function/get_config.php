@@ -60,6 +60,13 @@ function get_config_func()
     {
         $config_list['min_search_length'] = new xmlrpcval($config['fulltext_mysql_min_word_len'], 'int');
     }
+    
+    $config_list['stats'] = new xmlrpcval(array(
+        'topic'    => new xmlrpcval($config['num_topics'], 'int'),
+        'user'     => new xmlrpcval($config['num_users'], 'int'),
+    	'post'     => new xmlrpcval($config['num_posts'], 'int'),
+    	'active'   => new xmlrpcval($config['record_online_users'], 'int'),
+    ), 'struct');
     $response = new xmlrpcval($config_list, 'struct');
     
     return new xmlrpcresp($response);

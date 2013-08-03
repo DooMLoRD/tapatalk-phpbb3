@@ -47,3 +47,4 @@ inappreg = 0
 announcement = 1
 ban_delete_type = hard_delete
 inappsignin = 1
+search_user = 1

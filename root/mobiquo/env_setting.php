@@ -435,6 +435,11 @@ switch ($request_method)
     case 'prefetch_account':
     	$_POST['email'] = $request_params[0];
     	break;
+    case 'search_user':
+    	$_POST['username'] = $request_params[0];
+    	$_POST['email'] = $request_params[0];
+    	$_POST['page'] = $request_params[1];
+    	$_POST['perpage'] = $request_params[2];
 }
 
 foreach($_GET  as $key => $value) $_REQUEST[$key] = $value;

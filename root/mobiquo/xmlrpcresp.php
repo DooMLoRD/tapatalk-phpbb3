@@ -189,7 +189,7 @@ function get_thread_func()
         'position'       => new xmlrpcval($topic_data['prev_posts'] + 1, 'int'),
 
         'can_reply'      => new xmlrpcval($auth->acl_get('f_reply', $forum_id) && $topic_data['forum_status'] != ITEM_LOCKED && $topic_data['topic_status'] != ITEM_LOCKED, 'boolean'),
-    	'can_report'     => new xmlrpcval($auth->acl_get('f_report', $forum_id),'boolean'),
+    	'can_report'     => new xmlrpcval(true,'boolean'),
         'can_upload'     => new xmlrpcval($allowed, 'boolean'),
         'can_delete'     => new xmlrpcval($auth->acl_get('m_delete', $forum_id), 'boolean'),
         'can_move'       => new xmlrpcval($auth->acl_get('m_move', $forum_id), 'boolean'),
