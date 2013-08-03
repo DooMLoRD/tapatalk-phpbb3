@@ -369,7 +369,26 @@ function tt_insert_push_data($data)
 
 function tt_send_push_data($user_id,$type,$id,$sub_id,$title,$author,$is_only_alert=false)
 {
-	global $config,$db;
+	global $config,$db,$user,$phpbb_root_path;
+	
+	if(!function_exists("tt_get_ignore_users"))
+	{
+		if(!defined("IN_MOBIQUO"))
+		{
+			define('IN_MOBIQUO', true);
+		}			
+		if(!isset($config['tapatalkdir']))
+		{
+			$config['tapatalkdir'] = 'mobiquo';
+		}
+		require_once $phpbb_root_path.$config['tapatalkdir'].'/mobiquo_common.php';
+	}
+	$ignore_users = tt_get_ignore_users($user_id);
+	
+	if(in_array($user->data['user_id'], $ignore_users))
+	{
+		return false;
+	}
     $boardurl = generate_board_url();
 	$ttp_data = array(
                 'userid'    => $user_id,

@@ -493,4 +493,11 @@ $server_param = array(
     						 array($xmlrpcStruct, $xmlrpcBase64,$xmlrpcInt ,$xmlrpcInt),
     						 ),
     ),
+    
+    'ignore_user' => array(
+    	'function' => 'ignore_user_func',
+    	'signature' => array(
+    						 array($xmlrpcStruct,$xmlrpcString ,$xmlrpcInt),
+    						 ),
+    ),
 );

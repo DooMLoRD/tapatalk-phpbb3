@@ -440,6 +440,20 @@ switch ($request_method)
     	$_POST['email'] = $request_params[0];
     	$_POST['page'] = $request_params[1];
     	$_POST['perpage'] = $request_params[2];
+    	break;
+    case 'ignore_user':
+    	if(!isset($request_params[1]) || $request_params[1] == 1)
+    	{
+    		$_POST['add'] = $request_params[0];
+    		$_POST['mode'] = 'foes';
+    		$_POST['submit'] = 1;
+    	}
+    	else 
+    	{
+    		$_POST['usernames'] = explode(',', $request_params[0]);
+    		$_POST['submit'] = 'Submit';
+    	}
+    	break;
 }
 
 foreach($_GET  as $key => $value) $_REQUEST[$key] = $value;

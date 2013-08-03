@@ -1334,3 +1334,23 @@ function tt_get_user_by_id($uid)
     $db->sql_freeresult($result);
     return $row;
 }
+
+function tt_get_ignore_users($user_id)
+{
+	global $db;
+	
+	$sql_and = 'z.foe = 1';
+	$sql = 'SELECT z.*
+		FROM ' . ZEBRA_TABLE . ' z
+		WHERE z.user_id = ' . $user_id . "
+			AND $sql_and ";
+	$result = $db->sql_query($sql);
+	
+	$ignore_users = array();
+	while ($row = $db->sql_fetchrow($result))
+	{
+		$ignore_users[] = $row['zebra_id'];
+	}
+	$db->sql_freeresult($result);
+	return $ignore_users;
+}
