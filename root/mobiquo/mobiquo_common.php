@@ -291,7 +291,7 @@ function post_html_clean($str)
         "/<strong>(.*?)<\/strong>/si",
         "/<em>(.*?)<\/em>/si",
         "/<img .*?src=\"(.*?)\".*?\/?>/si",
-        "/<a .*?href=\"(.*?)\"(.*?[^\/])?>(.*?)<\/a>/sei",
+        "/<a .*?href=\"(.*?)\"(.*?[^\/])?>(.*?)(<\/a>)?/sei",
         "/<br\s*\/?>|<\/cite>|<\/dt>|<\/dd>/si",
         "/<object .*?data=\"(http:\/\/www\.youtube\.com\/.*?)\" .*?>.*?<\/object>/si",
         "/<object .*?data=\"(http:\/\/video\.google\.com\/.*?)\" .*?>.*?<\/object>/si",
@@ -304,7 +304,7 @@ function post_html_clean($str)
         '[b]$1[/b]',
         '[i]$1[/i]',
         '[img]$1[/img]',
-        "'[url='.url_encode('$1').']$3[/url]'",
+        "'[url='.url_encode('$1').']'.strip_tags('$0').'[/url]'",
         "\n",
         '[url=$1]YouTube Video[/url]',
         '[url=$1]Google Video[/url]',
@@ -318,9 +318,11 @@ function post_html_clean($str)
     // remove smile
     $str = preg_replace('/<img [^>]*?src=\"[^"]*?images\/smilies\/[^"]*?\"[^>]*?alt=\"([^"]*?)\"[^>]*?\/?>/', '$1', $str);
     $str = preg_replace('/<img [^>]*?alt=\"([^"]*?)\"[^>]*?src=\"[^"]*?images\/smilies\/[^"]*?\"[^>]*?\/?>/', '$1', $str);
-    
+
     $str = preg_replace('/<null.*?\/>/', '', $str);
+   
     $str = preg_replace($search, $replace, $str);
+    
     $str = strip_tags($str);
     $str = html_entity_decode($str, ENT_QUOTES, 'UTF-8');
     
@@ -576,8 +578,8 @@ function url_encode($url)
     }
     
     $url = preg_replace('#^.*?(?=download/file\.php)#si', '', $url);
-    
-    if (strpos($url, 'http') !== 0)
+ 
+    if (strpos($url, 'http') !== 0 && strpos($url, 'https') !== 0 && strpos($url, 'mailto') !== 0)
     {
         $url = $phpbb_home.$url;
     }

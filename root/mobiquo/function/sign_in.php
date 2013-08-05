@@ -313,11 +313,14 @@ function tt_login_success()
 function tt_copy_avatar($uid,$avatar_url)
 {
 	global $config,$phpbb_root_path,$db,$user, $phpEx;
-	$can_upload = ($config['allow_avatar_upload'] && file_exists($phpbb_root_path . $config['avatar_path']) && phpbb_is_writable($phpbb_root_path . $config['avatar_path']) &&  (@ini_get('file_uploads') || strtolower(@ini_get('file_uploads')) == 'on')) ? true : false;
+	$can_upload = $config['allow_avatar_remote'];
 	if($can_upload && !empty($avatar_url))
 	{
 		$avatar['user_id'] = $uid;
-		$avatar['uploadurl'] = $avatar_url;
+		$avatar['uploadurl'] = '';
+		$avatar['remotelink'] = $avatar_url;
+		$avatar['width'] = $config['avatar_max_width'];
+		$avatar['height'] = $config['avatar_max_height'];
 		$error = array();
 		$upload_response = avatar_upload($avatar, $error);
 
