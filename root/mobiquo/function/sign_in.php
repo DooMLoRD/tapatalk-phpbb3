@@ -322,7 +322,7 @@ function tt_copy_avatar($uid,$avatar_url)
 		$avatar['width'] = $config['avatar_max_width'];
 		$avatar['height'] = $config['avatar_max_height'];
 		$error = array();
-		$upload_response = avatar_upload($avatar, $error);
+		$upload_response = avatar_remote($avatar, $error);
 
 		if(empty($error))
 		{
