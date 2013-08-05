@@ -491,7 +491,7 @@ function get_user_info_func($xmlrpc_params)
     }
     $user_info = array(
         'user_id'            => new xmlrpcval($member['user_id']),
-        'username'           => new xmlrpcval($member['username'], 'base64'),
+        'username'           => new xmlrpcval(basic_clean($member['username']), 'base64'),
 		'user_type' => check_return_user_type($member['username']),
         'post_count'         => new xmlrpcval($member['user_posts'], 'int'),
         'reg_time'           => new xmlrpcval(mobiquo_iso8601_encode($member['user_regdate']), 'dateTime.iso8601'),
@@ -528,7 +528,7 @@ function show_profile($data, $user_notes_enabled = false, $warn_user_enabled = f
 
     if (!empty($data['user_allow_viewemail']) || $auth->acl_get('a_user'))
     {
-        $email = ($config['board_email_form'] && $config['email_enable']) ? '' : (($config['board_hide_emails'] && !$auth->acl_get('a_user')) ? '' : $data['user_email']);
+        $email = ($config['board_email_form'] && $config['email_enable']) ? (($config['board_hide_emails'] && !$auth->acl_get('a_user')) ? '' : $data['user_email']) : '';
     }
     else
     {
