@@ -56,7 +56,6 @@ $versions = array(
 		'config_add' => array(
 			array('mobiquo_push', 1),
 			array('mobiquo_hide_forum_id',''),
-			array('mobiquo_guest_okay',1),
 			array('mobiquo_reg_url','ucp.php?mode=register'),
 			array('tapatalkdir','mobiquo'),
 			array('mobiquo_is_chrome',1)
@@ -230,6 +229,11 @@ $versions = array(
 	),
 	'3.8.1' => array(),
 	'3.9.0' => array(),
+	'4.0.0' => array(
+		'config_remove' => array(
+			array('mobiquo_guest_okay'),
+		),
+	),
 );		
 
 		

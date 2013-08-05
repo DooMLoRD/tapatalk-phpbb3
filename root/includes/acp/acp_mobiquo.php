@@ -38,11 +38,9 @@ class acp_mobiquo
 					'title'	=> 'ACP_MOBIQUO_SETTINGS',
 					'vars'	=> array(
 					'legend'				=> 'GENERAL_OPTIONS',
-					'mobiquo_guest_okay'	=> array('lang' => 'MOBIQUO_GUEST_OKAY', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
 					'mobiquo_hide_forum_id'	=> array('lang' => 'MOBIQUO_HIDE_FORUM_ID', 'validate' => 'string',	'type' => 'custom',	'explain' => true,	'method' => 'select_box'),
 					'tapatalkdir'			=> array('lang' => 'MOBIQUO_NAME', 'validate' => 'string', 'type' => 'text:10:12', 'explain' => true),
-					'mobiquo_reg_url'		=> array('lang' => 'MOBIQUO_REG_URL', 'validate' => 'string', 'type' => 'text:30:40', 'explain' => true),
-					'mobiquo_push'			=> array('lang' => 'MOBIQUO_PUSH', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),	
+					'mobiquo_reg_url'		=> array('lang' => 'MOBIQUO_REG_URL', 'validate' => 'string', 'type' => 'text:30:40', 'explain' => true),	
 				    'tapatalk_push_key'		=> array('lang' => 'TAPATALK_PUSH_KEY', 'validate' => 'string','type' => 'text:40:60','explain' => true),
 					'tapatalk_forum_read_only'	=> array('lang' => 'TAPATALK_FORUM_READ_ONLY', 'validate' => 'string',	'type' => 'custom',	'explain' => true,	'method' => 'select_box'),
 					'tapatalk_allow_register'		=> array('lang' => 'TAPATALK_ALLOW_REGISTER', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),

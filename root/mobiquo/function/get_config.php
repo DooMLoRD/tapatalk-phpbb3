@@ -15,7 +15,7 @@ function get_config_func()
     $config_list = array(
         'sys_version'=> new xmlrpcval($config['version'], 'string'),
     	'is_open'    => new xmlrpcval($mobiquo_config['is_open'] ? true : false, 'boolean'),
-        'guest_okay' => new xmlrpcval($mobiquo_config['guest_okay'] ? true : false, 'boolean'),
+        'guest_okay' => new xmlrpcval( true , 'boolean'),
     );
 	foreach($mobiquo_config as $key => $value)
     {

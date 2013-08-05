@@ -25,15 +25,12 @@ $lang = array_merge($lang, array(
 
 	'TP_PUSHENABLED'                => 'push enabled',
 	'TP_PUSHENABLED_EXPLAIN' 		=> 'If push enabled,you will push message to users',
-	'MOBIQUO_GUEST_OKAY' 			=> 'Allow Guest',
-    'MOBIQUO_GUEST_OKAY_EXPLAIN' 	=> 'Allow guest to browser your fourm on tapatalk. If forum is closed for guest, this setting will not work.',
 	'MOBIQUO_HIDE_FORUM_ID' 		=> 'Hide Forums',
 	'MOBIQUO_HIDE_FORUM_ID_EXPLAIN' => 'Hide forums you don\'t want them to be listed in Tapatalk app.',
 	'MOBIQUO_NAME' 					=> 'Tapatalk plugin directory',
 	'MOBIQUO_NAME_EXPLAIN'			=> 'Never change it if you did not rename the Tapatalk plugin directory. And the default value is \'mobiquo\'. If you renamed the Tapatalk plugin directory, you also need to update the same setting for this forum in tapatalk forum owner area.(http://tapatalk.com/landing.php)',
 	'MOBIQUO_REG_URL' 				=> 'Your forum regisiter url',
 	'MOBIQUO_REG_URL_EXPLAIN' 		=> 'If your forum reg url is not default,please change',
-	'MOBIQUO_PUSH_EXPLAIN' 			=> 'Tapatalk users on your forum can get instant notification with new reply of subscribed topic and new pm if this setting was enabled.',
 	'TAPATALK_PUSH_KEY' 			=> 'Tapatalk API Key',
     'TAPATALK_PUSH_KEY_EXPLAIN' 	=> 'Formerly known as Push Key. This key is now required for secure connection between your community and Tapatalk server. Features such as Push Notification and Single Sign-On requires this key to work.',
 
