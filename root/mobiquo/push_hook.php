@@ -16,7 +16,7 @@ function tapatalk_push_reply($data)
 	}
 	if(!push_table_exists())
 		return false;
-	if(!check_push() || !(function_exists('curl_init') || ini_get('allow_url_fopen')))
+	if(!(function_exists('curl_init') || ini_get('allow_url_fopen')))
 	{
 		$is_only_alert = true;
 	}
@@ -53,7 +53,7 @@ function tapatalk_push_newtopic($data)
 	}
 	if(!push_table_exists())
 		return false;
-	if(!check_push() || !(function_exists('curl_init') || ini_get('allow_url_fopen')))
+	if(!(function_exists('curl_init') || ini_get('allow_url_fopen')))
 	{
 		$is_only_alert = true;
 	}	
@@ -90,7 +90,7 @@ function tapatalk_push_pm($userid,$pm_id,$subject)
 	}
     if(!push_table_exists())
 		return false;
-	if(!check_push() || !(function_exists('curl_init') || ini_get('allow_url_fopen')))
+	if(!(function_exists('curl_init') || ini_get('allow_url_fopen')))
 	{
 		$is_only_alert = true;
 	}
@@ -121,7 +121,7 @@ function tapatalk_push_quote($data,$user_name_arr,$type="quote")
 	}
 	if(!push_table_exists())
 		return false;
-	if(!check_push() || !(function_exists('curl_init') || ini_get('allow_url_fopen')))
+	if(!(function_exists('curl_init') || ini_get('allow_url_fopen')))
 	{
 		$is_only_alert = true;
 	}
@@ -150,14 +150,6 @@ function tapatalk_push_quote($data,$user_name_arr,$type="quote")
 		}
 	}
 	return $return_status;
-}
-
-function check_push()
-{
-	global $db,$config,$phpbb_root_path,$phpEx;
-    if(!$config['mobiquo_push'])
-        return false;
-    return true;
 }
 
 function tt_do_post_request($data,$is_test = false)
@@ -207,7 +199,7 @@ function tt_do_post_request($data,$is_test = false)
 		}
         //Send push
 		$error_msg = '';
-        $push_resp = getContentFromRemoteServer($push_url, $hold_time, &$error_msg, 'POST', $data);
+        $push_resp = getContentFromRemoteServer($push_url, $hold_time, $error_msg, 'POST', $data);
         if((trim($push_resp) === 'Invalid push notification key') && !$is_test)
         {
         	$push_resp = 1;
@@ -428,10 +420,6 @@ function tt_get_user_push_type($userid)
 		require_once $phpbb_root_path . $config['tapatalkdir'] . '/xmlrpcresp.' . $phpEx;
 	}
 	if(!push_table_exists())
-	{
-		return array();
-	}
-	if(!check_push())
 	{
 		return array();
 	}

@@ -27,37 +27,18 @@ function update_push_status_func($xmlrpc_params)
 	}
 	if($user->data['is_registered'] == 1)
 	{
-		$update_params = array();
-		if(isset($params[0]['all']))
-		{
-			$update_params['announcement'] = $params[0]['all'] ? 1 : 0;
-            $update_params['pm'] = $params[0]['all'] ? 1 : 0;
-            $update_params['subscribe'] = $params[0]['all'] ? 1 : 0;
-            $update_params['quote'] = $params[0]['all'] ? 1 : 0;
-            $update_params['tag'] = $params[0]['all'] ? 1 : 0;
-            $update_params['newtopic'] = $params[0]['all'] ? 1 : 0;		
-		}
-		else 
-		{
-			$update_params['announcement'] = isset($params[0]['ann']) ? $params[0]['ann'] : 1;
-            $update_params['pm'] = isset($params[0]['pm']) ? $params[0]['pm'] : 1;
-            $update_params['subscribe'] = isset($params[0]['sub']) ? $params[0]['sub'] : 1;
-            $update_params['quote'] = isset($params[0]['quote']) ? $params[0]['quote'] : 1;
-            $update_params['tag'] = isset($params[0]['tag']) ? $params[0]['tag'] : 1;
-            $update_params['newtopic'] = isset($params[0]['newtopic']) ? $params[0]['newtopic'] : 1;
-            	
-		}
-		$sql = 'UPDATE '. $table_prefix . "tapatalk_users SET announcement = '".$update_params['announcement']."',pm='".$update_params['pm']."',
-		subscribe = '".$update_params['subscribe']."',quote = '".$update_params['quote']."',tag = '".$update_params['tag']."',newtopic='".$update_params['newtopic']."'
-		WHERE userid = '".$user->data['user_id']."'";
-		$result = $db->sql_query($sql);
-		if($result)
-		{
-			return new xmlrpcresp(new xmlrpcval(true, 'boolean'));
-		}
-		else 
-		{
-			return new xmlrpcresp(new xmlrpcval(false, 'boolean'));
-		}
+		$board_url = generate_board_url();
+		$data = array(
+            'url'  => $board_url,
+            'key'  => isset($config['tapatalk_push_key']) ? $config['tapatalk_push_key'] : '',
+            'uid'  => $user->data['user_id'],
+            'data' => base64_encode(serialize($params[0])),
+        );
+            
+        $url = 'https://directory.tapatalk.com/au_update_push_setting.php';
+        getContentFromRemoteServer($url, 0, $error_msg, 'POST', $data);
+		return new xmlrpcresp(new xmlrpcval(true, 'boolean'));
+		
 	}
+	return new xmlrpcresp(new xmlrpcval(false, 'boolean'));
 }

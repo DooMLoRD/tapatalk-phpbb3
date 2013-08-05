@@ -35,7 +35,7 @@ function get_config_func()
     	$config_list['result_text'] = new xmlrpcval($config['board_disable_msg'],'base64');
     }
  	
-    if(isset($config['mobiquo_push']) && push_table_exists())
+    if(push_table_exists())
     {
     	$config_list['alert'] = new xmlrpcval(1, 'string');
     }

@@ -8,7 +8,7 @@ $user->setup('ucp');
 
 function sign_in_func()
 {
-    global $config, $db, $user, $auth, $template, $phpbb_root_path, $phpEx,$user_info;
+    global $config, $db, $user, $auth, $template, $phpbb_root_path, $phpEx,$user_info,$register;
     
 	if ($config['require_activation'] == USER_ACTIVATION_DISABLE)
 	{
@@ -50,6 +50,7 @@ function sign_in_func()
 				}
 				else 
 				{
+					$register = 0;
 					return tt_login_success();
 				}		
 			}
@@ -177,6 +178,7 @@ function sign_in_func()
 						else 
 						{
 							$user_info['user_id'] = $user_id;
+							$register = 1;
 							return tt_login_success();
 						}
 						
@@ -225,7 +227,7 @@ function sign_in_func()
 
 function tt_login_success()
 {
-	global $config, $db, $user, $phpbb_root_path, $phpEx,$user_info,$auth;
+	global $config, $db, $user, $phpbb_root_path, $phpEx,$user_info,$auth,$register;
 	header('Set-Cookie: mobiquo_a=0');
     header('Set-Cookie: mobiquo_b=0');
     header('Set-Cookie: mobiquo_c=0');
@@ -280,20 +282,7 @@ function tt_login_success()
 	    $can_search = $auth->acl_get('u_search') && $auth->acl_getf_global('f_search') && $config['load_search'];
 	    $can_whosonline = $auth->acl_gets('u_viewprofile', 'a_user', 'a_useradd', 'a_userdel');
 	    $max_filesize   = ($config['max_filesize'] === '0' || $config['max_filesize'] > 10485760) ? 10485760 : $config['max_filesize'];
-	    $userPushType = array();
-	    $push_type = array();
-	    if(file_exists("push_hook.php"))
-	    {
-	    	require_once 'push_hook.php';
-	    	$userPushType = tt_get_user_push_type($user->data['user_id']);
-	    }
-	 	foreach ($userPushType as $name=>$value)
-	    {
-	    	$push_type[] = new xmlrpcval(array(
-	            'name'  => new xmlrpcval($name,'string'),
-	    		'value' => new xmlrpcval($value,'boolean'),                    
-	            ), 'struct');
-	    }
+	    
 	    $response = new xmlrpcval(array(
 	        'result'        => new xmlrpcval(true, 'boolean'),
 	        'user_id'       => new xmlrpcval($user->data['user_id'], 'string'),
@@ -313,7 +302,7 @@ function tt_login_success()
 	        'can_search'    => new xmlrpcval($can_search, 'boolean'),
 	        'can_whosonline'    => new xmlrpcval($can_whosonline, 'boolean'),
 	        'can_upload_avatar' => new xmlrpcval($can_upload, 'boolean'),
-	    	'push_type'         => new xmlrpcval($push_type, 'array'),
+	    	'register'          => new xmlrpcval($register, "boolean"),
 	    ), 'struct');
 	    
 	    return new xmlrpcresp($response);

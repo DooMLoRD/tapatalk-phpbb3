@@ -4,7 +4,6 @@ defined('IN_MOBIQUO') or exit;
 $mobiquo_config['guest_okay'] = isset($config['mobiquo_guest_okay']) ? $config['mobiquo_guest_okay'] : $mobiquo_config['guest_okay'];
 $mobiquo_config['reg_url'] = isset($config['mobiquo_reg_url']) ? $config['mobiquo_reg_url'] : $mobiquo_config['reg_url'];
 $mobiquo_config['hide_forum_id'] = !empty($config['mobiquo_hide_forum_id']) ? explode(',', $config['mobiquo_hide_forum_id']) : $mobiquo_config['hide_forum_id'];
-$mobiquo_config['push'] = isset($config['mobiquo_push']) ? $config['mobiquo_push'] : $mobiquo_config['push'];
 if(empty($config['tapatalkdir'])) $config['tapatalkdir'] = 'mobiquo';
 
 mobi_parse_requrest();

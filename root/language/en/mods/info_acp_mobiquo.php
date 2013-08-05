@@ -33,10 +33,9 @@ $lang = array_merge($lang, array(
 	'MOBIQUO_NAME_EXPLAIN'			=> 'Never change it if you did not rename the Tapatalk plugin directory. And the default value is \'mobiquo\'. If you renamed the Tapatalk plugin directory, you also need to update the same setting for this forum in tapatalk forum owner area.(http://tapatalk.com/landing.php)',
 	'MOBIQUO_REG_URL' 				=> 'Your forum regisiter url',
 	'MOBIQUO_REG_URL_EXPLAIN' 		=> 'If your forum reg url is not default,please change',
-	'MOBIQUO_PUSH' 					=> 'Enable Tapatalk Push Notification',
 	'MOBIQUO_PUSH_EXPLAIN' 			=> 'Tapatalk users on your forum can get instant notification with new reply of subscribed topic and new pm if this setting was enabled.',
-	'TAPATALK_PUSH_KEY' 			=> 'Tapatalk push key',
-    'TAPATALK_PUSH_KEY_EXPLAIN' 	=> 'A push_key to verify your forum push certification, you can fill here with the push key you registered in Tapatalk.com. This is not mandatory but if you enter this key, it will make push feature perfect .',
+	'TAPATALK_PUSH_KEY' 			=> 'Tapatalk API Key',
+    'TAPATALK_PUSH_KEY_EXPLAIN' 	=> 'Formerly known as Push Key. This key is now required for secure connection between your community and Tapatalk server. Features such as Push Notification and Single Sign-On requires this key to work.',
 
 	'ACP_TAPATALK_REBRANDING'          => 'Tapatalk BYO Options',
 	'ACP_TAPATALK_REBRANDING_EXPLAIN'  => 'Tapatalk - Build Your Own - Options',
