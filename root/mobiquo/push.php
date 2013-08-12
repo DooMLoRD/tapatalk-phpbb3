@@ -17,24 +17,12 @@ if(isset($_GET['checkcode']))
 	echo 'push code have been added in phpbb : ' . (strstr($string , 'tapatalk_push_reply($data);') ? 'yes' : 'no' ). '<br/>';
 	exit;
 }
-if(isset($config['mobiquo_push']) && $config['mobiquo_push'] == 1)
-{
-	$option_status = 'On';
-}
-elseif (isset($config['mobiquo_push']) && $config['mobiquo_push'] == 0)
-{
-	$option_status = 'Off';
-}
-else 
-{
-	$option_status = 'Unset';
-}
+
 echo '<b>Tapatalk Push Notification Status Monitor</b><br/>';
 echo '<br/>Push notification test: ' . (($return_status === '1') ? '<b>Success</b>' : 'Failed('.$return_status.')');
 echo '<br/>Current server IP: ' . $server_ip;
 echo '<br/>Current forum url: ' . $board_url;
 echo '<br/>Tapatalk user table existence: ' . ($table_exist ? 'Yes' : 'No');
-echo '<br/>Push Notification Option status: ' . $option_status;
 echo '<br/><br/><a href="http://tapatalk.com/api/api.php" target="_blank">Tapatalk API for Universal Forum Access</a> | <a href="http://tapatalk.com/mobile.php" target="_blank">Tapatalk Mobile Applications</a><br>
     For more details, please visit <a href="http://tapatalk.com" target="_blank">http://tapatalk.com</a>';
 
