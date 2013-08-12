@@ -283,6 +283,17 @@ function tt_login_success()
 	    $can_whosonline = $auth->acl_gets('u_viewprofile', 'a_user', 'a_useradd', 'a_userdel');
 	    $max_filesize   = ($config['max_filesize'] === '0' || $config['max_filesize'] > 10485760) ? 10485760 : $config['max_filesize'];
 	    
+	    $userPushType = array('pm' => 1,'newtopic' => 1,'sub' => 1,'tag' => 1,'quote' => 1);
+	    $push_type = array();
+	    
+	 	foreach ($userPushType as $name=>$value)
+	    {
+	    	$push_type[] = new xmlrpcval(array(
+	            'name'  => new xmlrpcval($name,'string'),
+	    		'value' => new xmlrpcval($value,'boolean'),                    
+	            ), 'struct');
+	    }   
+	    
 	    $response = new xmlrpcval(array(
 	        'result'        => new xmlrpcval(true, 'boolean'),
 	        'user_id'       => new xmlrpcval($user->data['user_id'], 'string'),
@@ -303,6 +314,8 @@ function tt_login_success()
 	        'can_whosonline'    => new xmlrpcval($can_whosonline, 'boolean'),
 	        'can_upload_avatar' => new xmlrpcval($can_upload, 'boolean'),
 	    	'register'          => new xmlrpcval($register, "boolean"),
+	    	'push_type'         => new xmlrpcval($push_type, 'array'), 
+	    
 	    ), 'struct');
 	    
 	    return new xmlrpcresp($response);
