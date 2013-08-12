@@ -429,6 +429,16 @@ function xmlresptrue()
     return new xmlrpcresp($result);
 }
 
+function xmlrespfalse()
+{
+    $result = new xmlrpcval(array(
+        'result'        => new xmlrpcval(false, 'boolean'),
+        'result_text'   => new xmlrpcval('', 'base64')
+    ), 'struct');
+    
+    return new xmlrpcresp($result);
+}
+
 /**
  * 
  * check tapatalk push table is exist or not
