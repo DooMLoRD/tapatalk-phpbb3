@@ -7,6 +7,7 @@ var app_android_hd_id_default = 'com.quoord.tapatalkHD';
 var byo_ios_enable = false;
 var byo_android_enable = false;
 var byo_kindle_enable = false;
+var functionCallAfterWindowLoad = 0;
 
 if (empty(is_mobile_skin))
     var is_mobile_skin = 0;
