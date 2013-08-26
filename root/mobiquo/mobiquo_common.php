@@ -336,7 +336,7 @@ function post_html_clean($str)
     $str = preg_replace('/\[\/img\]\s+\[img\]/si', '[/img][img]', $str);
     
     // remove link on img
-    $str = preg_replace('/\[url=[^\]]*?\]\s*(\[img\].*?\[\/img\])\s*\[\/url\]/si', '$1', $str);
+    //$str = preg_replace('/\[url=[^\]]*?\]\s*(\[img\].*?\[\/img\])\s*\[\/url\]/si', '$1', $str);
     
     // change url to image resource to img bbcode
     $str = preg_replace('/\[url\](http[^\[\]]+\.(jpg|png|bmp|gif))\[\/url\]/si', '[img]$1[/img]', $str);
