@@ -23,7 +23,7 @@
 		<installation>
 			<level>intermediate</level>
 			<time>1800</time>
-			<target-version>3.0.0 above</target-version>
+			<target-version>3.0.8 above</target-version>
 		</installation>
 		<history>
 			<entry>
@@ -204,10 +204,7 @@
 		</open>
 		<open src="viewonline.php">
 			<edit>
-				<find><![CDATA[if (!sizeof($on_page))
-	{
-		$on_page[1] = '';
-	}]]></find>
+				<find><![CDATA[preg_match('#^([a-z0-9/_-]+)#i', $row['session_page'], $on_page);]]></find>
 				<action type="after-add"><![CDATA[	//start taptalk hook
     if(file_exists($phpbb_root_path.(!empty($config['tapatalkdir']) ? $config['tapatalkdir'] : 'mobiquo').'/include/online_hook.php'))
     {

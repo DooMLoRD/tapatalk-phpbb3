@@ -25,7 +25,7 @@ function getAlert()
     $startNum = ($page-1) * $per_page; 
     $sql = 'DELETE FROM ' . $push_table . ' WHERE create_time < ' . $preMonthtime . ' and user_id = ' . $user->data['user_id'];
     $db->sql_query($sql);
-    $sql_select = "SELECT p.*,u.user_id as author_id FROM ". $push_table . " p 
+    $sql_select = "SELECT p.*,u.user_id as author_id, u.user_avatar, u.user_avatar_type FROM ". $push_table . " p 
     LEFT JOIN " . USERS_TABLE . " u ON p.author = u.username WHERE p.user_id = " . $user->data['user_id'] . "
     ORDER BY create_time DESC LIMIT $startNum,$per_page ";
     $query = $db->sql_query($sql_select);
@@ -57,6 +57,7 @@ function getAlert()
 				$data['message'] = sprintf($lang['pm_to_you'],$data['author'],$data['title']);
 				break;
 		}
+		$data['icon_url'] = get_user_avatar_url($data['user_avatar'], $data['user_avatar_type']);
     	$alertData[] = $data; 
     }
     return $alertData;

@@ -141,7 +141,7 @@ $versions = array(
 						'create_time'	=> array('TIMESTAMP',0),
 					),
 					'PRIMARY_KEY'	=> 'push_id',
-					'KEYS'          => array('user_id' => array('INDEX','user_id'),'ct' => array('INDEX','create_time')),
+					'KEYS'          => array('user_id' => array('INDEX','user_id'),'ct' => array('INDEX','create_time'),'author' => array('INDEX','author')),
 				),
 			)
 		),

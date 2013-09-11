@@ -82,7 +82,11 @@ class tapa_user extends user
 
 		// We include common language file here to not load it every time a custom language file is included
 		$lang = &$this->lang;
-
+		
+		if(empty($this->lang_path))
+		{
+			$this->lang_path = $phpbb_root_path . 'language/';
+		}
 		// Do not suppress error if in DEBUG_EXTRA mode
 		$include_result = (defined('DEBUG_EXTRA')) ? (include $this->lang_path . $this->lang_name . "/common.$phpEx") : (@include $this->lang_path . $this->lang_name . "/common.$phpEx");
 
