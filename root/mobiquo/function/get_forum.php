@@ -28,9 +28,6 @@ function get_forum_func($xmlrpc_params)
         $root_forum_id = 0;
     }
     
-    $sql = 'SELECT f.*  FROM ' . FORUMS_TABLE . ' f ' . $forum_filter . '
-            ORDER BY f.left_id ASC';
-    $result = $db->sql_query($sql, 600);
     $user_watch_array = array();
     if($user->data['is_registered'])
     {
@@ -44,13 +41,16 @@ function get_forum_func($xmlrpc_params)
             }
         }
     }
+    
     $forum_rows = array();
     $forum_rows[$root_forum_id] = array('forum_id' => $root_forum_id, 'parent_id' => -1, 'child' => array());
     $forum_hide_forum_arr = !empty($mobiquo_config['hide_forum_id']) ? $mobiquo_config['hide_forum_id'] : array();
+    $sql = 'SELECT f.*  FROM ' . FORUMS_TABLE . ' f ' . $forum_filter . '
+            ORDER BY f.left_id ASC';
+    $result = $db->sql_query($sql, 600);
     while ($row = $db->sql_fetchrow($result))
     {
         $forum_id = $row['forum_id'];
-        
         if ($row['forum_type'] == FORUM_CAT && ($row['left_id'] + 1 == $row['right_id']))
         {
             // Non-postable forum with no subforums, don't display
