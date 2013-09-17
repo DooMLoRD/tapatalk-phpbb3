@@ -37,7 +37,8 @@ function login_func($xmlrpc_params)
 	    ), 'struct');
         return new xmlrpcresp($response);
     }
-    $config['max_login_attempts'] = 100;
+    $config['max_login_attempts'] = 20;
+    $config['ip_login_limit_max'] = 50;
     $login_result = $auth->login($username, $password, true, $viewonline);
     
     $usergroup_id = array();
