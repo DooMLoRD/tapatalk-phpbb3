@@ -17,6 +17,12 @@ function get_config_func()
     	'is_open'    => new xmlrpcval($mobiquo_config['is_open'] ? true : false, 'boolean'),
         'guest_okay' => new xmlrpcval( true , 'boolean'),
     );
+	if (!function_exists('curl_init') && !@ini_get('allow_url_fopen'))
+	{
+	    $mobiquo_config['sign_in'] = 0;
+	    $mobiquo_config['inappreg'] = 0;
+	    $mobiquo_config['inappsignin'] = 0;
+	}
 	foreach($mobiquo_config as $key => $value)
     {
         if (!in_array($key, array('is_open', 'guest_okay', 'php_extension', 'shorten_quote', 'hide_forum_id', 'check_dnsbl')))
@@ -48,9 +54,10 @@ function get_config_func()
     {
         $config_list['guest_whosonline'] = new xmlrpcval('1', 'string');
     }
-	if(!empty($config['tapatalk_allow_register']))
+	if($config['require_activation'] == USER_ACTIVATION_DISABLE)
     {
-    	$config_list['inappreg'] = new xmlrpcval('1', 'string');
+    	$config_list['inappreg'] = new xmlrpcval(0, 'string');
+    	$config_list['inappsignin'] = new xmlrpcval(0, 'string');
     }
     if ($config['search_type'] == 'fulltext_native')
     {
@@ -61,6 +68,10 @@ function get_config_func()
         $config_list['min_search_length'] = new xmlrpcval($config['fulltext_mysql_min_word_len'], 'int');
     }
     
+    if(!empty($config['tapatalk_push_key']))
+    {
+    	$config_list['api_key'] = new xmlrpcval(md5($config['tapatalk_push_key']), 'string');
+    }
     $config_list['stats'] = new xmlrpcval(array(
         'topic'    => new xmlrpcval($config['num_topics'], 'int'),
         'user'     => new xmlrpcval($config['num_users'], 'int'),

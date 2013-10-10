@@ -43,8 +43,8 @@ class acp_mobiquo
 					'mobiquo_reg_url'		=> array('lang' => 'MOBIQUO_REG_URL', 'validate' => 'string', 'type' => 'text:30:40', 'explain' => true),	
 				    'tapatalk_push_key'		=> array('lang' => 'TAPATALK_PUSH_KEY', 'validate' => 'string','type' => 'text:40:60','explain' => true),
 					'tapatalk_forum_read_only'	=> array('lang' => 'TAPATALK_FORUM_READ_ONLY', 'validate' => 'string',	'type' => 'custom',	'explain' => true,	'method' => 'select_box'),
-					'tapatalk_allow_register'		=> array('lang' => 'TAPATALK_ALLOW_REGISTER', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
 					'tapatalk_custom_replace'  => array('lang' => 'TAPATALK_CUSTOM_REPLACE', 'validate' => 'string', 'type' => 'textarea:4:250', 'explain' => true),
+					'tapatalk_app_ads_enable'		=> array('lang' => 'TAPATALK_ALLOW_APP_ADS', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
 					)
 				);
 				break;

@@ -44,8 +44,8 @@ $lang = array_merge($lang, array(
 	'TAPATALK_ANDROID_URL_EXPLAIN'          => 'Enter your BYO App ID from Google Play, to be used on Android device. E.g. "com.quoord.tapatalkpro.activity".',
 	'TAPATALK_KINDLE_URL_EXPLAIN'           => 'Enter your BYO App URL from Amazon App Store, to be used on Kindle Fire device.',
 	
-	'TAPATALK_ALLOW_REGISTER'               => 'In-app Registration',
-	'TAPATALK_ALLOW_REGISTER_EXPLAIN'       => 'Allows Tapatalk users to create new account, change password and update email address in-app.',
+	'TAPATALK_ALLOW_APP_ADS'               => 'Mobile Welcome Screen',
+	'TAPATALK_ALLOW_APP_ADS_EXPLAIN'       => 'Tapatalk will show a one time welcoming screen to mobile users to download the free app, the screen will contain your forum logo and branding only, with a button to get the free app.',
 	
 	'TAPATALK_CUSTOM_REPLACE'               => 'Thread Content Replacement (Advanced)',
 	'TAPATALK_CUSTOM_REPLACE_EXPLAIN'       => 'Ability to match and replace thread content using PHP preg_replace function(http://www.php.net/manual/en/function.preg-replace.php). E.g. "\'pattern\',\'replacement\'" . You can define more than one replace rule on each line.',

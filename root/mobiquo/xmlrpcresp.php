@@ -180,6 +180,7 @@ function get_thread_func()
                 //!$item['post_edit_locked'] &&
                 ($topic_data['topic_time'] > time() - ($config['edit_time'] * 60) || !$config['edit_time'])
             )));
+    $is_poll = !empty($topic_data['poll_title']) ? true : false;
     $result = array(
         'total_post_num' => new xmlrpcval($total_posts, 'int'),
         'forum_id'       => new xmlrpcval($forum_id),
@@ -202,7 +203,8 @@ function get_thread_func()
         'is_closed'      => new xmlrpcval($topic_data['topic_status'] == ITEM_LOCKED, 'boolean'),
         'can_approve'    => new xmlrpcval($auth->acl_get('m_approve', $forum_id) && !$topic_data['topic_approved'], 'boolean'),
         'is_approved'    => new xmlrpcval($topic_data['topic_approved'] ? true : false, 'boolean'),
-
+		'is_poll'    => new xmlrpcval($is_poll, 'boolean'),
+    
         'max_attachment' => new xmlrpcval($max_attachment, 'int'),
         'max_png_size'   => new xmlrpcval($max_png_size, 'int'),
         'max_jpg_size'   => new xmlrpcval($max_jpg_size, 'int'),

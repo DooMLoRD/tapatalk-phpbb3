@@ -348,6 +348,13 @@ function post_html_clean($str)
         $str = cut_quote($str, 100);
     }
     
+    //add tapatalk thumbnail
+    $str = preg_replace_callback('/(\[img\])(http:\/\/img.tapatalk.com\/d\/[0-9]{2}\/[0-9]{2}\/[0-9]{2})(.*?)(\[\/img\])/i',
+            create_function(
+                '$matches',
+                'return \'[url=http://tapatalk.com/tapatalk_image.php?img=\'.base64_encode($matches[2].\'/original\'.$matches[3]).\']\'.$matches[1].$matches[2].\'/thumbnail\'.$matches[3].$matches[4].\'[/url]\';'
+            ),
+    $str);
     return parse_bbcode($str);
 }
 
@@ -1165,12 +1172,18 @@ function tt_register_verify($tt_token,$tt_code)
 {
     global $config;
     $key = isset($config['tapatalk_push_key']) ? $config['tapatalk_push_key'] : '';
-    $url = "http://directory.tapatalk.com/au_reg_verify.php?token=".$tt_token."&code=".$tt_code."&key=" . $key;
     $board_url = generate_board_url();
-    $url .= '&url=' . urlencode($board_url);
 
+    $url = "http://directory.tapatalk.com/au_reg_verify.php";
+    $data = array(
+        'token' => $tt_token,
+        'code' => $tt_code,
+        'key' => $key,
+        'url' => $board_url
+    );
     $error_msg = '';
-    $response = getContentFromRemoteServer($url, 10 , $error_msg);
+    $response = getContentFromRemoteServer($url, 10, $error_msg, 'POST', $data);
+    
     if(!empty($error_msg))
     {
         $response = '{"result":false,"result_text":"' . $error_msg . '"}';
