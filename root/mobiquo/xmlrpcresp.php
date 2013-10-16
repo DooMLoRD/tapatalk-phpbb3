@@ -50,6 +50,7 @@ function get_thread_func()
                     $attach_id = $matches[2];
 
                     $file_url = basic_clean($phpbb_home.$matches[1]);
+                    $file_url = str_replace('&t=1', '', $file_url);
                     $thumbnail_url = '';
 
                     if ($config['img_create_thumbnail'] && $attachment_by_id[$attach_id]['thumbnail_orig'])

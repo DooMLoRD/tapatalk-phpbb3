@@ -1335,7 +1335,7 @@ if (sizeof($attach_list))
 		{
             // tapatalk add
             $row['thumbnail_orig'] = $row['thumbnail'];
-            $row['thumbnail'] = 0;
+            //$row['thumbnail'] = 0;
             $attachment_by_id[$row['attach_id']] = $row;
 		
 			$attachments[$row['post_msg_id']][] = $row;

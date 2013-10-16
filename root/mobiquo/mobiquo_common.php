@@ -322,7 +322,7 @@ function post_html_clean($str)
     $str = preg_replace('/<null.*?\/>/', '', $str);
    
     $str = preg_replace($search, $replace, $str);
-    
+   
     $str = strip_tags($str);
     $str = html_entity_decode($str, ENT_QUOTES, 'UTF-8');
     
@@ -331,8 +331,9 @@ function post_html_clean($str)
     
     // change relative path to absolute URL and encode url
     $str = preg_replace('/\[img\](.*?)\[\/img\]/sei', "'[img]'.url_encode('$1').'[/img]'", $str);
-    
+     
     $str = preg_replace('/\[\/img\]\s*/si', "[/img]\n", $str);
+    
     $str = preg_replace('/\[\/img\]\s+\[img\]/si', '[/img][img]', $str);
     
     // remove link on img
