@@ -183,7 +183,7 @@ function save_raw_post_func($xmlrpc_params)
     $check_value = (($post_data['enable_bbcode']+1) << 8) + (($post_data['enable_smilies']+1) << 4) + (($post_data['enable_urls']+1) << 2) + (($post_data['enable_sig']+1) << 1);
 
     // Check if user is watching this topic
-    if ($mode != 'post' && $config['allow_topic_notify'] && $user->data['is_registered'])
+    /*if ($mode != 'post' && $config['allow_topic_notify'] && $user->data['is_registered'])
     {
         $sql = 'SELECT topic_id
             FROM ' . TOPICS_WATCH_TABLE . '
@@ -192,7 +192,7 @@ function save_raw_post_func($xmlrpc_params)
         $result = $db->sql_query($sql);
         $post_data['notify_set'] = (int) $db->sql_fetchfield('topic_id');
         $db->sql_freeresult($result);
-    }
+    }*/
 
     // Do we want to edit our post ?
     if ($post_data['bbcode_uid'])
@@ -472,7 +472,7 @@ function save_raw_post_func($xmlrpc_params)
         'forum_parents'            => $post_data['forum_parents'],
         'forum_name'            => $post_data['forum_name'],
         'notify'                => $notify,
-        'notify_set'            => $post_data['notify_set'],
+        //'notify_set'            => $post_data['notify_set'],
         'poster_ip'                => (isset($post_data['poster_ip'])) ? $post_data['poster_ip'] : $user->ip,
         'post_edit_locked'        => (int) $post_data['post_edit_locked'],
         'bbcode_bitfield'        => $message_parser->bbcode_bitfield,

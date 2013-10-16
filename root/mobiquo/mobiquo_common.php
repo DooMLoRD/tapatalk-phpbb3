@@ -1141,23 +1141,23 @@ function check_return_user_type($username)
     {
         $user_id = 0;
     }
-    $sql = "SELECT group_id FROM " . USER_GROUP_TABLE . " WHERE user_id = " . $user_id;
+    $sql = "SELECT group_name FROM " . USER_GROUP_TABLE . " AS ug LEFT JOIN " .GROUPS_TABLE. " AS g ON ug.group_id = g.group_id WHERE user_id = " . $user_id;
     $query = $db->sql_query($sql);
     $is_ban = $session->check_ban($user_id);
     $user_groups = array();
     while($row = $db->sql_fetchrow($query))
     {
-        $user_groups[] = $row['group_id'];
+        $user_groups[] = $row['group_name'];
     }
-    if(!empty($is_ban ) || in_array(6, $user_groups))
+    if(!empty($is_ban ))
     {
         $user_type = 'banned';
     }
-    else if(in_array(5, $user_groups))
+    else if(in_array('ADMINISTRATORS', $user_groups))
     {
         $user_type = 'admin';
     }
-    else if(in_array(4, $user_groups))
+    else if(in_array('GLOBAL_MODERATORS', $user_groups))
     {
         $user_type = 'mod';
     }

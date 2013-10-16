@@ -2361,7 +2361,6 @@ class umil
 		{
 			return $this->umil_end('TABLE_KEY_ALREADY_EXIST', $table_name, $index_name);
 		}
-
 		if (!is_array($column))
 		{
 			$column = array($column);
@@ -2374,7 +2373,6 @@ class umil
 		{
 			$column = preg_replace('#:.*$#', '', $column);
 		}
-
 		$this->db_tools->sql_create_index($table_name, $index_name, $column);
 
 		return $this->umil_end();
