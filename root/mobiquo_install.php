@@ -242,6 +242,7 @@ $versions = array(
 		'config_remove' => array(
 			array('tapatalk_allow_register'),
 		),
+		'custom'	=> 'push_table_update',
 	),
 );		
 
@@ -293,6 +294,12 @@ function push_table_update ($action, $version)
 		{
 			$cloumn = array('create_time');
 			$umil->table_index_add($table_prefix.'tapatalk_push_data','ct',$cloumn);
+		}
+		
+		if(!$umil->table_index_exists($table_prefix.'tapatalk_push_data','author'))
+		{
+			$cloumn = array('author');
+			$umil->table_index_add($table_prefix.'tapatalk_push_data','author',$cloumn);
 		}
 	}
 	

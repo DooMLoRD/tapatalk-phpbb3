@@ -19,7 +19,7 @@
 				</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>3.9.0</mod-version>
+		<mod-version>4.1.0</mod-version>
 		<installation>
 			<level>intermediate</level>
 			<time>1800</time>
@@ -163,6 +163,22 @@
 					<change>Add ignore_user function . </change>
 					<change>Optimize sign in function .</change>
 					<change>Other bugs fixed .</change>
+				</changelog>
+			</entry>
+			<entry>
+				<date>2013-10-16</date>
+				<rev-version>4.1.0</rev-version>
+				<changelog lang="en">
+					<change>flag poll in thread functions.</change>
+					<change>optimize tapatalk hosted image display.</change>
+					<change>enhance mention push notification compatibility.</change>
+					<change>optimize smartbanner. </change>
+					<change>optimize push notification.</change>
+					<change>fix join on column "author" with no index</change>
+					<change>fix some Compatibility issues with old phpBB systyem</change>
+					<change>fix smartbanner issue</change>
+					<change>fix post changed unsubscribe when edit post with Tapatalk</change>
+					<change>other small bugs fixed</change>
 				</changelog>
 			</entry>
 		</history>
