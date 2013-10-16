@@ -527,7 +527,7 @@ $s_watching_topic = array(
 if (($config['email_enable'] || $config['jab_enable']) && $config['allow_topic_notify'])
 {
 	$notify_status = (isset($topic_data['notify_status'])) ? $topic_data['notify_status'] : null;
-	if($config['version'] < '3.0.1') 
+	if(version_compare($config['version'], '3.0.1', '<')) 
 	{
 		$s_watching_topic_img = array();
 		watch_topic_forum('topic', $s_watching_topic, $s_watching_topic_img, $user->data['user_id'], $forum_id, $topic_id, $topic_data['notify_status'], $start);
@@ -539,7 +539,7 @@ if (($config['email_enable'] || $config['jab_enable']) && $config['allow_topic_n
 	
 
 	// Reset forum notification if forum notify is set
-	if($config['version'] >= '3.0.1')
+	if(version_compare($config['version'], '3.0.1', '>='))
 	{
 		if ($config['allow_forum_notify'] && $auth->acl_get('f_subscribe', $forum_id))
 		{
@@ -1335,7 +1335,7 @@ if (sizeof($attach_list))
 		{
             // tapatalk add
             $row['thumbnail_orig'] = $row['thumbnail'];
-            //$row['thumbnail'] = 0;
+            $row['thumbnail'] = 0;
             $attachment_by_id[$row['attach_id']] = $row;
 		
 			$attachments[$row['post_msg_id']][] = $row;

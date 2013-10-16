@@ -70,7 +70,7 @@ function get_recommended_user_func()
 			$users[$row['uid']] = 5;
 	}
 	
-	asort($users);	
+	arsort($users);	
 
 	foreach ($users as $key =>$row)
 	{
@@ -88,10 +88,14 @@ function get_recommended_user_func()
 			unset($users[$key]);
 		}
 	}
-	
+
+	$page =  intval($_POST['page']);
+    $perpage = intval($_POST['perpage']);
+    $start = ($page-1) * $perpage;
 	$total = count($users);
-	
-	$id_str = implode(',', array_keys($users));
+	$users_keys = array_keys($users);
+	$users_slice = array_slice($users_keys, $start,$perpage);
+	$id_str = implode(',', $users_slice);
 	$return_user_lists = array();
 	if(!empty($id_str))
 	{
