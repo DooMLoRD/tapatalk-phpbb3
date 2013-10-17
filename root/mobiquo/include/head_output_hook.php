@@ -12,8 +12,8 @@
 	
 	if(file_exists($phpbb_root_path.$tapatalk_dir . '/smartbanner/head.inc.php'))
 	{
-		$api_key = $config['tapatalk_push_key'];
-    	$app_ads_enable = $config['tapatalk_app_ads_enable'];
+		$api_key = isset($config['tapatalk_push_key']) ? $config['tapatalk_push_key'] : '';
+    	$app_ads_enable = isset($config['tapatalk_app_ads_enable']) ? $config['tapatalk_app_ads_enable'] : 1;
     	
 		$app_forum_name = $config['sitename'];
 	    $tapatalk_dir_url = $board_url . $tapatalk_dir;

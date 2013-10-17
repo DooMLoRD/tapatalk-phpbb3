@@ -68,6 +68,15 @@ function get_config_func()
         $config_list['min_search_length'] = new xmlrpcval($config['fulltext_mysql_min_word_len'], 'int');
     }
     
+    if(isset($config['tapatalk_push_key']))
+    {
+    	$config_list['automod'] = new xmlrpcval(1, 'string');
+    }
+    else 
+    {
+    	$config_list['automod'] = new xmlrpcval(0, 'string');
+    }
+    
     if(!empty($config['tapatalk_push_key']))
     {
     	$config_list['api_key'] = new xmlrpcval(md5($config['tapatalk_push_key']), 'string');

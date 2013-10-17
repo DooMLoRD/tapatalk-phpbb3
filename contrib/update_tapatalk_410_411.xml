@@ -4,8 +4,8 @@
 		<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
 	<header>
 		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
-			<title lang="en">Tapatalk 4.0.0 to 4.1.0</title>
-				<description lang="en">Updates mod to 4.1.0 from 4.0.0</description>
+			<title lang="en">Tapatalk 4.1.0 to 4.1.1</title>
+				<description lang="en">Updates mod to 4.1.1 from 4.1.0</description>
 		<author-group>
 			<author>
 				<realname>tapatalk</realname>
@@ -16,7 +16,7 @@
 				</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>4.1.0</mod-version>
+		<mod-version>4.1.1</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
@@ -29,22 +29,8 @@
 	<action-group>
 		<copy>
 			<file from="root/mobiquo_install.php" to="mobiquo_install.php" />
-			<file from="root/includes/acp/*.*" to="includes/acp/*.*" />
 			<file from="root/mobiquo/*.*" to="mobiquo/*.*" />
-			<file from="root/language/*.*" to="language/*.*" />
 		</copy>
-		<open src="viewtopic.php">
-			<edit>
-				<find><![CDATA[$message = censor_text($row['post_text']);]]></find>
-				<action type="after-add"><![CDATA[//add tapatalk thumbnail
-    $message = preg_replace_callback('/(\[img(.*?)\])(http&#58;\/\/img&#46;tapatalk&#46;com\/d\/[0-9]{2}\/[0-9]{2}\/[0-9]{2})(.*?)(\[\/img\2\])/i',
-            create_function(
-                '$matches',
-                'return \'<a target="_blank" href="http&#58;//tapatalk&#46;com/tapatalk_image&#46;php?img=\'.base64_encode($matches[3].\'/original\'.$matches[4]).\'">\'.$matches[1].$matches[3].\'/thumbnail\'.$matches[4].$matches[5].\'</a>\';'
-            ),
-    $message);]]></action>
-			</edit>
-		</open>
 		<php-installer><![CDATA[mobiquo_install.php]]></php-installer>
 <diy-instructions lang="en"><![CDATA[*** NOTE: If you are installing via Automod you may skip to step 2 ***
 1. Make all edits to all files and upload them to your forum.    
