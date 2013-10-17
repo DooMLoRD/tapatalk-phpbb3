@@ -349,13 +349,6 @@ function post_html_clean($str)
         $str = cut_quote($str, 100);
     }
     
-    //add tapatalk thumbnail
-    $str = preg_replace_callback('/(\[img\])(http:\/\/img.tapatalk.com\/d\/[0-9]{2}\/[0-9]{2}\/[0-9]{2})(.*?)(\[\/img\])/i',
-            create_function(
-                '$matches',
-                'return \'[url=http://tapatalk.com/tapatalk_image.php?img=\'.base64_encode($matches[2].\'/original\'.$matches[3]).\']\'.$matches[1].$matches[2].\'/thumbnail\'.$matches[3].$matches[4].\'[/url]\';'
-            ),
-    $str);
     return parse_bbcode($str);
 }
 
