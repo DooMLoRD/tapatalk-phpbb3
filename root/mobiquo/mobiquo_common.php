@@ -592,7 +592,7 @@ function get_user_avatar_url($avatar, $avatar_type, $ignore_config = false)
 {
     global $config, $phpbb_home, $phpEx;
 
-    if (empty($avatar) || !$avatar_type || (isset($config['allow_avatar']) && !$config['allow_avatar'] && !$ignore_config))
+    if (empty($avatar) || (isset($config['allow_avatar']) && !$config['allow_avatar'] && !$ignore_config))
     {
         return '';
     }
@@ -623,6 +623,9 @@ function get_user_avatar_url($avatar, $avatar_type, $ignore_config = false)
                 return '';
             }
         break;
+        default:
+        	return $avatar;
+        	break;
     }
 
     $avatar_img .= $avatar;
