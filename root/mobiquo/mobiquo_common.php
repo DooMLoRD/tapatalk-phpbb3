@@ -220,7 +220,7 @@ function mobi_parse_requrest()
             }
         }
     }
-    
+    if(empty($data)) return false;
     $parsers = php_xmlrpc_decode_xml($data);
     $request_method = $parsers->methodname;
     $request_params = php_xmlrpc_decode(new xmlrpcval($parsers->params, 'array'));
@@ -331,7 +331,7 @@ function post_html_clean($str)
     
     // change relative path to absolute URL and encode url
     $str = preg_replace('/\[img\](.*?)\[\/img\]/sei', "'[img]'.url_encode('$1').'[/img]'", $str);
-     
+    
     $str = preg_replace('/\[\/img\]\s*/si', "[/img]\n", $str);
     
     $str = preg_replace('/\[\/img\]\s+\[img\]/si', '[/img][img]', $str);
@@ -393,6 +393,7 @@ function parse_bbcode($str)
             }   
         }
     }
+   
     return $str;
 }
 
@@ -564,7 +565,15 @@ function url_encode($url)
 {
     global $phpbb_home, $phpbb_root_path;
     
+	//check is domain
+    $is_domain = false;
+    if(preg_match('/^\//', $url))
+    {
+    	$is_domain = true;
+    	$server_url = $_SERVER['HTTP_HOST'];
+    }
     $url = rawurlencode($url);
+    
     $from = array('/%3A/', '/%2F/', '/%3F/', '/%2C/', '/%3D/', '/%26/', '/%25/', '/%23/', '/%2B/', '/%3B/', '/%5C/', '/%20/');
     $to   = array(':',     '/',     '?',     ',',     '=',     '&',     '%',     '#',     '+',     ';',     '\\',    ' ');
     $url = preg_replace($from, $to, $url);
@@ -579,10 +588,15 @@ function url_encode($url)
     }
     
     $url = preg_replace('#^.*?(?=download/file\.php)#si', '', $url);
- 
+ 	
+    
+    
     if (strpos($url, 'http') !== 0 && strpos($url, 'https') !== 0 && strpos($url, 'mailto') !== 0)
     {
-        $url = $phpbb_home.$url;
+    	if(!$is_domain)
+        	$url = $phpbb_home.$url;
+        else 
+        	$url = "http://".$server_url.'/'.$url;
     }
     
     return htmlspecialchars_decode($url);

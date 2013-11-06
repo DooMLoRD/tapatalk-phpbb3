@@ -181,15 +181,29 @@ function create_message_func($xmlrpc_params)
     // Check mass pm to users permission
     if ((!$config['allow_mass_pm'] || !$auth->acl_get('u_masspm')) && num_recipients($address_list) > 1)
     {
-        $address_list = get_recipients($address_list, 1);
-        trigger_error('TOO_MANY_RECIPIENTS');
+    	if(function_exists('get_recipients'))
+    	{
+    		$address_list = get_recipients($address_list, 1);
+    		trigger_error('TOO_MANY_RECIPIENTS');
+    	}
+        else if(function_exists('get_recipient_pos'))
+        {
+        	$address_list = get_recipient_pos($address_list, 1);
+        }
     }
 
     // Check for too many recipients
     if (!empty($address_list['u']) && $max_recipients && sizeof($address_list['u']) > $max_recipients)
     {
-        $address_list = get_recipients($address_list, $max_recipients);
-        trigger_error('TOO_MANY_RECIPIENTS');
+    	if(function_exists('get_recipients'))
+    	{
+    		$address_list = get_recipients($address_list, $max_recipients);
+        	trigger_error('TOO_MANY_RECIPIENTS');
+    	}
+    	else if(function_exists('get_recipient_pos'))
+        {
+        	$address_list = get_recipient_pos($address_list, $max_recipients);
+        }      
     }
     
     $enable_bbcode  = ($config['allow_bbcode'] && $config['auth_bbcode_pm'] && $auth->acl_get('u_pm_bbcode')) ? true : false;

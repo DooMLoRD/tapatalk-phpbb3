@@ -103,7 +103,7 @@ function get_thread_func()
             'can_ban'           => new xmlrpcval($can_ban_user, 'boolean'),
             'allow_smilies'     => new xmlrpcval($row['enable_smilies'] ? true : false, 'boolean'),
         );
-
+		
         if ($support_post_thanks)
         {
             if (

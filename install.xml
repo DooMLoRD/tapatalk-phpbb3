@@ -194,6 +194,11 @@
 			<link type="template" href="contrib/subsilver2.xml" lang="en">SubSilver2</link>
 			<link type="contrib" href="contrib/update_tapatalk_371_380.xml" lang="en">Update from 371 to 380</link>
 			<link type="contrib" href="contrib/update_tapatalk_371_380_subsilver2.xml" lang="en">Update from 371 to 380 for subsilver2</link>
+			<link type="contrib" href="contrib/update_tapatalk_380_381.xml" lang="en">Update from 380 to 381</link>
+			<link type="contrib" href="contrib/update_tapatalk_381_390.xml" lang="en">Update from 381 to 390</link>
+			<link type="contrib" href="contrib/update_tapatalk_390_400.xml" lang="en">Update from 390 to 400</link>
+			<link type="contrib" href="contrib/update_tapatalk_400_410.xml" lang="en">Update from 400 to 410</link>
+			<link type="contrib" href="contrib/update_tapatalk_410_411.xml" lang="en">Update from 410 to 411</link>
 		</link-group>
 	</header>
 	<action-group>
