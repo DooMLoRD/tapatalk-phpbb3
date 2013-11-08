@@ -253,7 +253,7 @@ function search_func()
                 'forum_id'              => new xmlrpcval($item['FORUM_ID'], 'string'),
                 'forum_name'            => new xmlrpcval(basic_clean($item['FORUM_TITLE']), 'base64'),
                 'topic_id'              => new xmlrpcval($item['TOPIC_ID'], 'string'),
-            	'post_id'               => new xmlrpcval($item['LAST_POST_ID'], 'string'),
+            	//'post_id'               => new xmlrpcval($item['LAST_POST_ID'], 'string'),
                 'topic_title'           => new xmlrpcval(basic_clean($item['TOPIC_TITLE']), 'base64'),
                 
                 'post_author_id'        => new xmlrpcval($item['LAST_POSTER_ID'], 'string'),

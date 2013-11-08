@@ -9,7 +9,7 @@ class acp_mobiquo_info
         return array(
             'filename'  => 'acp_mobiquo',
             'title'     => 'Tapatalk',    
-        	'version'	=> '4.1.1',  
+        	'version'	=> '4.2.0',  
             'modes'     => array(
             	'mobiquo'  => array(
             		'title' => 'ACP_MOBIQUO_SETTINGS', 

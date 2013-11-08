@@ -85,13 +85,16 @@ function tapatalkDetect()
         banner_location_url = app_android_id ? app_location_url_byo : app_location_url;
     }
     else if (navigator.userAgent.match(/IEMobile|Windows Phone/i)) {
+        if (app_ios_id || app_android_id || app_kindle_url) return;
         app_banner_message = app_banner_message.replace(/\[os_platform\]/gi, 'Windows Phone');
         banner_location_url = app_location_url;
     }
+    /*
     else if (navigator.userAgent.match(/BlackBerry/i)) {
         app_banner_message = app_banner_message.replace(/\[os_platform\]/gi, 'BlackBerry');
         banner_location_url = app_location_url;
     }
+    */
     else
         return
     

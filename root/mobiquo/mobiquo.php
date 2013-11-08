@@ -7,7 +7,14 @@
 */
 define('IN_PHPBB', true);
 define('IN_MOBIQUO', true);
-define('MOBIQUO_DEBUG', 0);
+if (isset($_SERVER['HTTP_DEBUG']) && $_SERVER['HTTP_DEBUG'] && file_exists('debug.on'))
+{
+    define('MOBIQUO_DEBUG', -1);
+    @ini_set('display_errors', 1);
+}
+else
+    define('MOBIQUO_DEBUG', 0);
+
 error_reporting(MOBIQUO_DEBUG);
 ob_start();
 include('./include/xmlrpc.inc');
