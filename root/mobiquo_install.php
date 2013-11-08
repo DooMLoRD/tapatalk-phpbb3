@@ -245,6 +245,7 @@ $versions = array(
 		'custom'	=> 'push_table_update',
 	),
 	'4.1.1' => array(),
+	'4.2.0' => array(),
 );		
 
 		

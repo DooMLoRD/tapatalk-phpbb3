@@ -1,8 +1,8 @@
 <?php
 	$user->add_lang('mods/info_acp_mobiquo');
-	if(file_exists($phpbb_root_path.$tapatalk_dir.'/include/function_hook.php'))
+	if(file_exists($phpbb_root_path.$tapatalk_dir.'/hook/function_hook.php'))
 	{
-		require_once $phpbb_root_path.$tapatalk_dir.'/include/function_hook.php';
+		require_once $phpbb_root_path.$tapatalk_dir.'/hook/function_hook.php';
 		$tapatalk_location_url = get_tapatlk_location();
 	}
 	else 
