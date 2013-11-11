@@ -5,8 +5,8 @@
 	<header>
 		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
 			<title lang="en">Tapatalk</title>
-				<description lang="en">Tapatalk for the forum index and seperate page.</description>
-				<author-notes lang="en">It took considerable time in creating this modification. Thanks and enjoy the mod!!
+				<description lang="en">Tapatalk Api for the forum.</description>
+				<author-notes lang="en">Installation and Update describtion (https://support.tapatalk.com/threads/phpbb-installation-update-uninstall-process.21535/)
 				</author-notes>
 		<author-group>
 			<author>
