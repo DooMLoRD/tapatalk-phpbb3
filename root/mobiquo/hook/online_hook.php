@@ -21,7 +21,7 @@
     		$tapatalk_params = explode('-',$param_param[1]);
     		if(!function_exists("tapatalk_online_display"))
     		{
-    			require_once $phpbb_root_path.$config['tapatalkdir'].'/include/function_hook.php';
+    			require_once $phpbb_root_path.$config['tapatalkdir'].'/hook/function_hook.php';
     		}
     		tapatalk_online_display($tapatalk_method);
     	}
