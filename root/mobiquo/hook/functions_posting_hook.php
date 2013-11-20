@@ -2,6 +2,7 @@
     if(!isset($tapatalk_push_run)) $tapatalk_push_run = true;
 	if ($url && $post_approval && $tapatalk_push_run)
     {
+    	$config['tapatalkdir'] = !empty($config['tapatalkdir']) ? $config['tapatalkdir'] : 'mobiquo';
         require_once($phpbb_root_path . $config['tapatalkdir'].'/push_hook.' . $phpEx);
         $user_name_tag_arr = tt_get_tag_list($data['message']);
         switch ($mode)

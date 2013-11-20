@@ -1,6 +1,7 @@
 <?php 
 		if($on_page[1] == 'mobiquo/mobiquo')
     	{
+    		$config['tapatalkdir'] = !empty($config['tapatalkdir']) ? $config['tapatalkdir'] : 'mobiquo';
     		$icon_url = $phpbb_root_path.$config['tapatalkdir'].'/images/tapatalk-online.png';
     		$icon_byo_url = $phpbb_root_path.$config['tapatalkdir'].'/images/byo-online.png';
     		if(strpos($row['session_browser'],"BYO"))
