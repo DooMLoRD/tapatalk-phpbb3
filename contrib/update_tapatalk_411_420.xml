@@ -89,6 +89,25 @@
 	// END mobiquo Mod]]></action>
 			</edit>		
 		</open>
+		<open src="includes/functions.php">
+			<edit>
+				<find><![CDATA[	$tapatalk_dir = !empty($config['tapatalkdir']) ? $config['tapatalkdir'] : 'mobiquo';
+	if(file_exists($phpbb_root_path.$tapatalk_dir.'/include/head_output_hook.php'))
+	{
+		include $phpbb_root_path.$tapatalk_dir.'/include/head_output_hook.php';
+	}]]></find>
+				<action type="replace-with"><![CDATA[	$tapatalk_dir = !empty($config['tapatalkdir']) ? $config['tapatalkdir'] : 'mobiquo';
+	if(file_exists($phpbb_root_path.$tapatalk_dir.'/hook/head_output_hook.php'))
+	{
+		include $phpbb_root_path.$tapatalk_dir.'/hook/head_output_hook.php';
+	}]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA['ROOT_PATH'			=> $phpbb_root_path,]]></find>
+				<action type="after-add"><![CDATA[	    //tapatalk add
+		'TAPATALK_HEAD'     => $app_head_include,]]></action>
+			</edit>
+		</open>
 		<open src="viewtopic.php">
 			<edit>
 				<find><![CDATA[//add tapatalk thumbnail
