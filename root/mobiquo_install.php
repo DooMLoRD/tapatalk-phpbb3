@@ -237,7 +237,7 @@ $versions = array(
 	),
 	'4.1.0' => array(
 		'config_add' => array(
-			array('tapatalk_app_ads_enable'),			
+			array('tapatalk_app_ads_enable',1),			
 		),
 		'config_remove' => array(
 			array('tapatalk_allow_register'),
