@@ -567,7 +567,7 @@ function url_encode($url)
     
 	//check is domain
     $is_domain = false;
-    if(preg_match('/^\//', $url))
+    if(preg_match('/^\//', $url) && !preg_match('/download\/file\.php/', $url))
     {
     	$is_domain = true;
     	$server_url = $_SERVER['HTTP_HOST'];
