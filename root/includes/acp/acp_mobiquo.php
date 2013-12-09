@@ -88,10 +88,6 @@ class acp_mobiquo
 		// We go through the display_vars to make sure no one is trying to set variables he/she is not allowed to...
 		foreach ($display_vars['vars'] as $config_name => $null)
 		{
-			if (!isset($cfg_array[$config_name]) || strpos($config_name, 'legend') !== false)
-			{
-				continue;
-			}
 			if(isset($_REQUEST['mobiquo_hide_forum_id']))
 			{
 				$hide_forum_id = implode(',',$_REQUEST['mobiquo_hide_forum_id']);
@@ -111,7 +107,12 @@ class acp_mobiquo
 				$cfg_array['tapatalk_forum_read_only'] = '';
 			}
 			$this->new_config[$config_name] = $config_value = $cfg_array[$config_name];
-
+			
+			if (!isset($cfg_array[$config_name]) || strpos($config_name, 'legend') !== false)
+			{
+				continue;
+			}
+			
 			if ($submit)
 			{
 				set_config($config_name, $config_value);
