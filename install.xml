@@ -271,7 +271,7 @@
 		</open>
 		<open src="styles/prosilver/template/overall_header.html">
 			<edit>
-				<find><![CDATA[<title>{SITENAME} &bull; <!-- IF S_IN_MCP -->{L_MCP} &bull;]]></find>
+				<find><![CDATA[</title>]]></find>
 				<action type="after-add"><![CDATA[{TAPATALK_HEAD}]]></action>
 			</edit>	
 			<edit>
